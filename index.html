@@ -1,0 +1,753 @@
+<!DOCTYPE HTML>
+<!--
+	VisualVerse - photography & digital art gallery
+	Based on "Multiverse" by HTML5 UP (html5up.net | @ajlkn)
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	Single file: works in the W3Schools Tryit Editor and on GitHub Pages (save as index.html).
+-->
+<html lang="en">
+<head>
+	<title>VisualVerse - Photography &amp; Digital Art</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="description" content="VisualVerse is a gallery of photography and digital art." />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+	<style>
+		/* ---------- Base ---------- */
+		*, *:before, *:after { box-sizing: border-box; }
+		html { -webkit-text-size-adjust: none; }
+		body {
+			margin: 0;
+			background: #1c1d26;
+			color: rgba(255,255,255,0.75);
+			font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+			font-weight: 300;
+			font-size: 15pt;
+			line-height: 1.65;
+			-webkit-font-smoothing: antialiased;
+		}
+		body.lb-open { overflow: hidden; }
+		a { color: inherit; text-decoration: none; border-bottom: dotted 1px rgba(255,255,255,0.35); transition: color .2s ease, border-color .2s ease; }
+		a:hover { color: #fff; border-bottom-color: transparent; }
+		strong { font-weight: 600; color: #fff; }
+		h1, h2 { color: #fff; font-weight: 600; line-height: 1.3; margin: 0 0 1em 0; text-transform: uppercase; letter-spacing: .2em; }
+		h2 { font-size: 1.1em; }
+		p { margin: 0 0 2em 0; }
+		ul { margin: 0 0 2em 0; padding: 0; list-style: none; }
+
+		/* ---------- Wrapper & header ---------- */
+		#wrapper { padding-top: 3.5em; }
+
+		#header {
+			position: fixed; top: 0; left: 0; width: 100%; height: 3.5em; z-index: 10001;
+			display: flex; justify-content: space-between; align-items: center;
+			background: #1c1d26;
+			box-shadow: 0 0 .75em rgba(0,0,0,.35);
+			padding: 0 1.5em;
+			transition: transform .6s ease;
+		}
+		#header h1 { margin: 0; font-size: .8em; letter-spacing: .25em; font-weight: 300; line-height: 3.5em; }
+		#header h1 a { border: 0; color: inherit; }
+		#header h1 strong { letter-spacing: .25em; }
+		#header nav ul { display: flex; margin: 0; }
+		#header nav ul li { margin-left: 1.5em; }
+		#header nav a {
+			display: inline-block; border: 0; cursor: pointer;
+			font-size: .7em; text-transform: uppercase; letter-spacing: .25em; font-weight: 600; line-height: 3.5em;
+			color: rgba(255,255,255,.75);
+		}
+		#header nav a i { margin-right: .75em; }
+		#header nav a:hover { color: #fff; }
+
+		/* ---------- Main gallery ---------- */
+		#main { display: flex; flex-wrap: wrap; }
+		.thumb {
+			position: relative; width: 25%; height: 20em; overflow: hidden; cursor: pointer;
+			background: #14151c;
+			opacity: 1; transform: none;
+			transition: opacity .7s ease, transform .7s ease;
+			transition-delay: calc(var(--i) * 70ms);
+		}
+		.thumb .image { position: absolute; inset: 0; display: block; border: 0; }
+		.thumb .image img {
+			width: 100%; height: 100%; object-fit: cover; display: block;
+			transition: transform 1s ease, filter .6s ease;
+		}
+		.thumb .image:before {
+			content: ""; position: absolute; inset: 0; z-index: 1;
+			background: linear-gradient(to top, rgba(10,11,16,.85) 0%, rgba(10,11,16,.25) 45%, rgba(10,11,16,0) 100%);
+			transition: opacity .5s ease;
+		}
+		.thumb .image:after {
+			content: ""; position: absolute; inset: 0; z-index: 2;
+			border: 0 solid rgba(255,255,255,.0);
+			transition: border-width .35s ease, border-color .35s ease;
+		}
+		.thumb h2, .thumb p {
+			position: absolute; z-index: 3; left: 1.75em; right: 1.75em; margin: 0; pointer-events: none;
+			transition: bottom .45s ease, opacity .45s ease;
+		}
+		.thumb h2 { bottom: 1.2em; font-size: .85em; letter-spacing: .2em; }
+		.thumb p { bottom: -4em; opacity: 0; font-size: .7em; line-height: 1.5; color: rgba(255,255,255,.8); }
+		.thumb:hover .image img, .thumb:focus-within .image img { transform: scale(1.1); }
+		.thumb:hover .image:after, .thumb:focus-within .image:after { border-width: .6em; border-color: rgba(255,255,255,.12); }
+		.thumb:hover h2, .thumb:focus-within h2 { bottom: 3.6em; }
+		.thumb:hover p, .thumb:focus-within p { bottom: 1.2em; opacity: 1; }
+
+		/* ---------- Preload animation ---------- */
+		body.is-preload #header { transform: translateY(-100%); }
+		body.is-preload .thumb { opacity: 0; transform: scale(.92); }
+
+		/* ---------- Footer panel ---------- */
+		#footer {
+			position: fixed; left: 0; bottom: 0; width: 100%; max-height: 100%; overflow-y: auto;
+			z-index: 10002;
+			background: rgba(28,29,38,.98);
+			padding: 4.5em 0 3em 0;
+			transform: translateY(100%); visibility: hidden;
+			transition: transform .5s ease, visibility 0s linear .5s;
+		}
+		#footer.visible { transform: translateY(0); visibility: visible; transition: transform .5s ease, visibility 0s; box-shadow: 0 0 3em rgba(0,0,0,.6); }
+		#footer .inner { max-width: 75em; margin: 0 auto; padding: 0 2.5em; }
+		#footer .split { display: flex; }
+		#footer .split > div { width: 50%; }
+		#footer .split > div:first-child { padding-right: 3em; }
+		#footer .split > div:last-child { padding-left: 3em; border-left: solid 1px rgba(255,255,255,.12); }
+		#footer .closer {
+			position: absolute; top: 1em; right: 1em; width: 3.25em; height: 3.25em; cursor: pointer;
+			background: transparent; border: 0; color: rgba(255,255,255,.6); font-size: 1.4em; line-height: 1;
+			transition: color .2s ease, transform .3s ease;
+		}
+		#footer .closer:hover { color: #fff; transform: rotate(90deg); }
+		.copyright { font-size: .7em; letter-spacing: .1em; color: rgba(255,255,255,.45); margin: 0; }
+
+		ul.icons { display: flex; flex-wrap: wrap; }
+		ul.icons li { margin-right: .75em; }
+		ul.icons a {
+			display: inline-flex; align-items: center; justify-content: center;
+			width: 2.6em; height: 2.6em; border-radius: 50%; border: solid 1px rgba(255,255,255,.35);
+			font-size: 1em; transition: background-color .2s ease, border-color .2s ease;
+		}
+		ul.icons a:hover { background: rgba(255,255,255,.1); border-color: #fff; }
+		.label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+		/* ---------- Form ---------- */
+		.fields { display: flex; flex-wrap: wrap; margin: -.75em 0 0 -.75em; }
+		.fields .field { width: calc(100% - .75em); margin: .75em 0 0 .75em; }
+		.fields .field.half { width: calc(50% - .75em); }
+		input[type="text"], input[type="email"], textarea {
+			display: block; width: 100%; appearance: none; border-radius: 4px;
+			background: rgba(255,255,255,.06); border: solid 1px rgba(255,255,255,.2);
+			color: #fff; font: inherit; font-size: .85em; padding: .7em 1em; outline: 0;
+			transition: border-color .2s ease, background-color .2s ease;
+		}
+		textarea { resize: vertical; }
+		input::placeholder, textarea::placeholder { color: rgba(255,255,255,.4); }
+		input:focus, textarea:focus { border-color: #34a5ff; background: rgba(255,255,255,.09); }
+		.field.invalid input, .field.invalid textarea { border-color: #ff6b6b; }
+		.error-msg { display: none; font-size: .65em; color: #ff8f8f; margin-top: .3em; letter-spacing: .05em; }
+		.field.invalid .error-msg { display: block; }
+		ul.actions { display: flex; flex-wrap: wrap; margin: 1.5em 0 0 0; }
+		ul.actions li { margin-right: 1em; }
+		ul.actions input {
+			appearance: none; cursor: pointer; border-radius: 4px; border: solid 1px rgba(255,255,255,.35);
+			background: transparent; color: #fff; font: inherit; font-size: .65em; font-weight: 600;
+			letter-spacing: .25em; text-transform: uppercase; padding: 0 2.2em; height: 3.2em;
+			transition: background-color .2s ease, border-color .2s ease;
+		}
+		ul.actions input:hover { background: rgba(255,255,255,.1); }
+		ul.actions input.primary { background: #34a5ff; border-color: #34a5ff; }
+		ul.actions input.primary:hover { background: #55b4ff; border-color: #55b4ff; }
+		ul.actions input:disabled { opacity: .5; cursor: default; }
+		.form-status { display: none; margin-top: 1.25em; padding: .8em 1em; border-radius: 4px; font-size: .8em; }
+		.form-status.show { display: block; }
+		.form-status.ok { background: rgba(52,200,140,.15); border: solid 1px rgba(52,200,140,.5); color: #9cf0cd; }
+		.form-status.bad { background: rgba(255,107,107,.12); border: solid 1px rgba(255,107,107,.45); color: #ffb0b0; }
+
+		/* ---------- Lightbox (popup) ---------- */
+		.lb {
+			position: fixed; inset: 0; z-index: 20000; background: rgba(18,19,26,.94);
+			display: flex; align-items: center; justify-content: center;
+			opacity: 0; visibility: hidden; transition: opacity .35s ease, visibility 0s linear .35s;
+		}
+		.lb.on { opacity: 1; visibility: visible; transition: opacity .35s ease, visibility 0s; }
+		.lb-stage { margin: 0; text-align: center; max-width: 88vw; opacity: 0; transform: scale(.96); transition: opacity .4s ease, transform .4s ease; }
+		.lb-stage.show { opacity: 1; transform: scale(1); }
+		.lb-stage img { display: block; max-width: 88vw; max-height: 76vh; margin: 0 auto; box-shadow: 0 0 3em rgba(0,0,0,.6); background: #14151c; }
+		.lb-stage figcaption { margin-top: 1em; font-size: .75em; color: rgba(255,255,255,.8); letter-spacing: .08em; }
+		.lb-stage figcaption strong { text-transform: uppercase; letter-spacing: .2em; margin-right: .6em; }
+		.lb-loader {
+			position: absolute; top: 50%; left: 50%; width: 2.5em; height: 2.5em; margin: -1.25em 0 0 -1.25em;
+			border: solid 3px rgba(255,255,255,.2); border-top-color: #fff; border-radius: 50%;
+			animation: spin .8s linear infinite; opacity: 0; transition: opacity .2s ease;
+		}
+		.lb.loading .lb-loader { opacity: 1; }
+		@keyframes spin { to { transform: rotate(360deg); } }
+		.lb-prev, .lb-next, .lb-close {
+			position: absolute; background: transparent; border: 0; color: rgba(255,255,255,.6); cursor: pointer;
+			transition: color .2s ease, background-color .2s ease;
+		}
+		.lb-prev, .lb-next { top: 0; bottom: 0; width: 6em; font-size: 2.2em; }
+		.lb-prev { left: 0; } .lb-next { right: 0; }
+		.lb-prev:before { content: "\2039"; } .lb-next:before { content: "\203A"; }
+		.lb-close { top: .5em; right: .5em; width: 3em; height: 3em; font-size: 1.6em; line-height: 1; }
+		.lb-close:before { content: "\00D7"; }
+		.lb-prev:hover, .lb-next:hover, .lb-close:hover { color: #fff; background: rgba(255,255,255,.05); }
+
+		/* ---------- Responsive ---------- */
+		@media screen and (max-width: 1680px) { body { font-size: 13pt; } .thumb { width: 33.3333%; } }
+		@media screen and (max-width: 1280px) { body { font-size: 12pt; } }
+		@media screen and (max-width: 980px) {
+			.thumb { width: 50%; height: 18em; }
+			#footer .split { display: block; }
+			#footer .split > div { width: 100%; }
+			#footer .split > div:first-child { padding-right: 0; }
+			#footer .split > div:last-child { padding-left: 0; border-left: 0; margin-top: 2em; }
+		}
+		@media screen and (max-width: 736px) {
+			body { font-size: 11pt; }
+			#header { padding: 0 1em; }
+			#header h1 { font-size: .7em; }
+			.thumb { height: 16em; }
+			#footer .inner { padding: 0 1.5em; }
+			.lb-prev, .lb-next { width: 3.5em; }
+		}
+		@media screen and (max-width: 480px) {
+			.thumb { width: 100%; height: 15em; }
+			.fields .field.half { width: calc(100% - .75em); }
+			#header h1 strong + * { display: none; }
+		}
+		@media (prefers-reduced-motion: reduce) { * { transition-duration: .01ms !important; animation-duration: .01ms !important; } }
+	</style>
+</head>
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header">
+			<h1><a href="#"><strong>VisualVerse</strong> photography &amp; digital art</a></h1>
+			<nav>
+				<ul>
+					<li><a href="#footer" id="aboutLink"><i class="fas fa-info-circle"></i>About</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<!-- Main -->
+		<div id="main">
+			<article class="thumb" style="--i:0" data-art="0">
+				<a href="#" class="image"><img alt="Golden Peaks" /></a>
+				<h2>Golden Peaks</h2>
+				<p>Photography. Alpenglow over layered mountain ridges.</p>
+			</article>
+			<article class="thumb" style="--i:1" data-art="1">
+				<a href="#" class="image"><img alt="Ocean Hush" /></a>
+				<h2>Ocean Hush</h2>
+				<p>Photography. A calm tide at golden hour.</p>
+			</article>
+			<article class="thumb" style="--i:2" data-art="2">
+				<a href="#" class="image"><img alt="Neon City Nights" /></a>
+				<h2>Neon City Nights</h2>
+				<p>Photography. A glowing skyline after dark.</p>
+			</article>
+			<article class="thumb" style="--i:3" data-art="3">
+				<a href="#" class="image"><img alt="Misty Pines" /></a>
+				<h2>Misty Pines</h2>
+				<p>Photography. Morning fog drifting through the forest.</p>
+			</article>
+			<article class="thumb" style="--i:4" data-art="4">
+				<a href="#" class="image"><img alt="Dune Whisper" /></a>
+				<h2>Dune Whisper</h2>
+				<p>Photography. Wind-carved desert ridges at sunset.</p>
+			</article>
+			<article class="thumb" style="--i:5" data-art="5">
+				<a href="#" class="image"><img alt="Aurora Borealis" /></a>
+				<h2>Aurora Borealis</h2>
+				<p>Photography. Northern lights above a snowy valley.</p>
+			</article>
+			<article class="thumb" style="--i:6" data-art="6">
+				<a href="#" class="image"><img alt="Neon Grid" /></a>
+				<h2>Neon Grid</h2>
+				<p>Digital art. A retro synthwave horizon.</p>
+			</article>
+			<article class="thumb" style="--i:7" data-art="7">
+				<a href="#" class="image"><img alt="Liquid Waves" /></a>
+				<h2>Liquid Waves</h2>
+				<p>Digital art. Flowing layers of gradient colour.</p>
+			</article>
+			<article class="thumb" style="--i:8" data-art="8">
+				<a href="#" class="image"><img alt="Low Poly Prism" /></a>
+				<h2>Low Poly Prism</h2>
+				<p>Digital art. A faceted crystal landscape.</p>
+			</article>
+			<article class="thumb" style="--i:9" data-art="9">
+				<a href="#" class="image"><img alt="Ringed Planet" /></a>
+				<h2>Ringed Planet</h2>
+				<p>Digital art. A quiet world at the edge of space.</p>
+			</article>
+			<article class="thumb" style="--i:10" data-art="10">
+				<a href="#" class="image"><img alt="Circle Bloom" /></a>
+				<h2>Circle Bloom</h2>
+				<p>Digital art. Radiating rings of vivid colour.</p>
+			</article>
+			<article class="thumb" style="--i:11" data-art="11">
+				<a href="#" class="image"><img alt="Hex Matrix" /></a>
+				<h2>Hex Matrix</h2>
+				<p>Digital art. A honeycomb field of energy.</p>
+			</article>
+		</div>
+
+		<!-- Footer -->
+		<footer id="footer" class="panel">
+			<button class="closer" id="footerClose" aria-label="Close panel">&times;</button>
+			<div class="inner split">
+				<div>
+					<section>
+						<h2>About VisualVerse</h2>
+						<p>VisualVerse is a small gallery that brings landscape photography and digital art together in one place. Tap any picture to view it full size, then use the arrows or your keyboard to move through the collection. New work is added all the time, so come back often.</p>
+					</section>
+					<section>
+						<h2>Follow us on ...</h2>
+						<ul class="icons">
+							<li><a href="#" class="fab fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="fab fa-facebook-f"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="fab fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="fab fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="#" class="fab fa-dribbble"><span class="label">Dribbble</span></a></li>
+							<li><a href="#" class="fab fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+						</ul>
+					</section>
+					<p class="copyright">&copy; VisualVerse. Design: <a href="http://html5up.net">HTML5 UP</a>.</p>
+				</div>
+				<div>
+					<section>
+						<h2>Get in touch</h2>
+						<!-- To receive real emails, put your Formspree (or similar) URL in data-endpoint, e.g. data-endpoint="https://formspree.io/f/yourid" -->
+						<form id="contactForm" method="post" action="#" novalidate data-endpoint="">
+							<div class="fields">
+								<div class="field half">
+									<input type="text" name="name" id="name" placeholder="Name" autocomplete="name" />
+									<div class="error-msg">Please enter your name.</div>
+								</div>
+								<div class="field half">
+									<input type="email" name="email" id="email" placeholder="Email" autocomplete="email" />
+									<div class="error-msg">Please enter a valid email.</div>
+								</div>
+								<div class="field">
+									<textarea name="message" id="message" rows="4" placeholder="Message"></textarea>
+									<div class="error-msg">Please write a short message.</div>
+								</div>
+							</div>
+							<ul class="actions">
+								<li><input type="submit" value="Send" class="primary" id="sendBtn" /></li>
+								<li><input type="reset" value="Reset" id="resetBtn" /></li>
+							</ul>
+							<div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+						</form>
+					</section>
+				</div>
+			</div>
+		</footer>
+
+	</div>
+
+	<script>
+	(function () {
+		'use strict';
+
+		/* ------------------------------------------------------------
+		   1. Artwork: every picture is drawn as an SVG and embedded as
+		      a data URI, so no image files are needed anywhere.
+		      To use your own photo instead, add data-src="photo.jpg"
+		      to any <article class="thumb"> above.
+		   ------------------------------------------------------------ */
+		var W = 1600, H = 1000;
+
+		function rng(seed) {
+			return function () {
+				seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+				var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+				t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+				return ((t ^ t >>> 14) >>> 0) / 4294967296;
+			};
+		}
+		function wrap(inner, defs) {
+			return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" preserveAspectRatio="xMidYMid slice">' +
+				'<defs>' + (defs || '') + '<filter id="bl" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="28"/></filter></defs>' + inner + '</svg>';
+		}
+		function lg(id, stops, x2, y2) {
+			return '<linearGradient id="' + id + '" x1="0" y1="0" x2="' + (x2 || 0) + '" y2="' + (y2 === undefined ? 1 : y2) + '">' +
+				stops.map(function (s) { return '<stop offset="' + s[0] + '" stop-color="' + s[1] + '"/>'; }).join('') + '</linearGradient>';
+		}
+		function rg(id, stops) {
+			return '<radialGradient id="' + id + '">' +
+				stops.map(function (s) { return '<stop offset="' + s[0] + '" stop-color="' + s[1] + '"/>'; }).join('') + '</radialGradient>';
+		}
+		function ridge(r, base, amp, step, fill, smooth) {
+			var pts = [], x;
+			for (x = -step; x <= W + step; x += step) pts.push([x, base - r() * amp]);
+			var d = 'M' + pts[0][0] + ',' + H + 'L' + pts[0][0] + ',' + pts[0][1];
+			for (var i = 1; i < pts.length; i++) {
+				var p = pts[i - 1], c = pts[i];
+				if (smooth) d += 'Q' + p[0] + ',' + p[1] + ' ' + ((p[0] + c[0]) / 2) + ',' + ((p[1] + c[1]) / 2);
+				else d += 'L' + c[0] + ',' + c[1];
+			}
+			d += 'L' + (W + step) + ',' + H + 'Z';
+			return '<path d="' + d + '" fill="' + fill + '"/>';
+		}
+		function stars(r, n, maxY) {
+			var s = '';
+			for (var i = 0; i < n; i++) {
+				s += '<circle cx="' + (r() * W).toFixed(0) + '" cy="' + (r() * maxY).toFixed(0) + '" r="' + (r() * 1.8 + .4).toFixed(1) + '" fill="#fff" opacity="' + (r() * .7 + .3).toFixed(2) + '"/>';
+			}
+			return s;
+		}
+		function pines(r, base, size, fill, count) {
+			var s = '';
+			for (var i = 0; i < count; i++) {
+				var x = r() * (W + 100) - 50, h = size * (0.7 + r() * 0.7), w = h * 0.38;
+				s += '<polygon points="' + x.toFixed(0) + ',' + (base - h).toFixed(0) + ' ' + (x - w).toFixed(0) + ',' + base + ' ' + (x + w).toFixed(0) + ',' + base + '" fill="' + fill + '"/>';
+				s += '<rect x="' + (x - 6).toFixed(0) + '" y="' + (base - 2) + '" width="12" height="' + (H - base) + '" fill="' + fill + '"/>';
+			}
+			return s;
+		}
+
+		var ART = [
+			/* 0 Golden Peaks */
+			function () {
+				var r = rng(11), s = '<rect width="' + W + '" height="' + H + '" fill="url(#sky)"/>';
+				s += '<circle cx="1100" cy="430" r="270" fill="#ffb26b" opacity=".3" filter="url(#bl)"/><circle cx="1100" cy="430" r="130" fill="#ffe2b0"/>';
+				['#8a4f7d', '#6b3f72', '#4a3265', '#2f2456', '#1b1740'].forEach(function (c, i) {
+					s += ridge(r, 520 + i * 110, 160 + i * 20, 70 + i * 10, c);
+				});
+				s += '<rect y="780" width="' + W + '" height="220" fill="url(#fog)"/>';
+				return wrap(s, lg('sky', [[0, '#2a1b4d'], [.5, '#d9566b'], [1, '#ffb26b']]) + lg('fog', [[0, 'rgba(255,170,120,0)'], [1, 'rgba(255,170,120,.4)']]));
+			},
+			/* 1 Ocean Hush */
+			function () {
+				var r = rng(22), s = '<rect width="' + W + '" height="540" fill="url(#sky)"/><rect y="540" width="' + W + '" height="460" fill="url(#sea)"/>';
+				s += '<circle cx="800" cy="540" r="220" fill="#ffd9a0" opacity=".55" filter="url(#bl)"/><circle cx="800" cy="520" r="70" fill="#fff1d0"/>';
+				s += '<rect x="740" y="545" width="120" height="300" fill="url(#glint)" opacity=".7"/>';
+				for (var i = 0; i < 18; i++) {
+					var y = 560 + i * i * 1.3 + i * 8, a = 4 + i * 1.6, d = 'M0,' + y;
+					for (var x = 0; x < W; x += 160) d += 'q80,' + (-a) + ' 160,0';
+					s += '<path d="' + d + '" fill="none" stroke="rgba(255,255,255,' + (0.08 + r() * 0.18).toFixed(2) + ')" stroke-width="' + (1.5 + i * .25).toFixed(1) + '"/>';
+				}
+				return wrap(s, lg('sky', [[0, '#6fb7e0'], [1, '#fbe0b4']]) + lg('sea', [[0, '#2a86b8'], [1, '#0a2744']]) + lg('glint', [[0, '#ffe3b0'], [1, 'rgba(255,227,176,0)']]));
+			},
+			/* 2 Neon City Nights */
+			function () {
+				var r = rng(33), s = '<rect width="' + W + '" height="' + H + '" fill="url(#sky)"/>' + stars(r, 60, 400);
+				s += '<circle cx="1250" cy="230" r="70" fill="#f3e9ff"/><circle cx="1250" cy="230" r="150" fill="#b983ff" opacity=".3" filter="url(#bl)"/>';
+				s += '<rect x="0" y="650" width="' + W + '" height="200" fill="#ff3d9a" opacity=".35" filter="url(#bl)"/>';
+				for (var layer = 0; layer < 2; layer++) {
+					var x = -20, base = H;
+					while (x < W) {
+						var w = 70 + r() * 80, h = (layer ? 260 : 360) + r() * (layer ? 260 : 380), top = base - h;
+						s += '<rect x="' + x.toFixed(0) + '" y="' + top.toFixed(0) + '" width="' + w.toFixed(0) + '" height="' + h.toFixed(0) + '" fill="' + (layer ? '#0d0b22' : '#241446') + '"/>';
+						for (var wy = top + 24; wy < base - 20; wy += 30) {
+							for (var wx = x + 12; wx < x + w - 14; wx += 22) {
+								if (r() > (layer ? .45 : .7)) {
+									s += '<rect x="' + wx.toFixed(0) + '" y="' + wy.toFixed(0) + '" width="10" height="14" fill="' + (r() > .5 ? '#ffd86b' : '#5fe8ff') + '" opacity="' + (.5 + r() * .5).toFixed(2) + '"/>';
+								}
+							}
+						}
+						x += w + 6 + r() * 14;
+					}
+				}
+				return wrap(s, lg('sky', [[0, '#080824'], [.6, '#3a1b6e'], [1, '#c2347f']]));
+			},
+			/* 3 Misty Pines */
+			function () {
+				var r = rng(44), s = '<rect width="' + W + '" height="' + H + '" fill="url(#sky)"/>';
+				s += '<circle cx="520" cy="260" r="120" fill="#e7fff3" opacity=".6" filter="url(#bl)"/>';
+				s += pines(r, 640, 260, '#4f8c86', 40);
+				s += '<rect y="520" width="' + W + '" height="200" fill="rgba(215,245,235,.45)" filter="url(#bl)"/>';
+				s += pines(r, 760, 360, '#2f6764', 30);
+				s += '<rect y="660" width="' + W + '" height="200" fill="rgba(215,245,235,.4)" filter="url(#bl)"/>';
+				s += pines(r, 900, 520, '#143f40', 20);
+				s += '<rect y="860" width="' + W + '" height="140" fill="#0a2526"/>';
+				return wrap(s, lg('sky', [[0, '#a9d6cf'], [1, '#e9f6ee']]));
+			},
+			/* 4 Dune Whisper */
+			function () {
+				var r = rng(55), s = '<rect width="' + W + '" height="' + H + '" fill="url(#sky)"/>';
+				s += '<circle cx="1180" cy="360" r="240" fill="#fff0c8" opacity=".5" filter="url(#bl)"/><circle cx="1180" cy="360" r="95" fill="#fff6dc"/>';
+				['#f0a35e', '#dc8348', '#bd6338', '#92472b', '#64301f'].forEach(function (c, i) {
+					s += ridge(r, 560 + i * 120, 170 + i * 15, 260 - i * 20, c, true);
+				});
+				return wrap(s, lg('sky', [[0, '#f6c78a'], [1, '#ffe9c4']]));
+			},
+			/* 5 Aurora Borealis */
+			function () {
+				var r = rng(66), s = '<rect width="' + W + '" height="' + H + '" fill="url(#sky)"/>' + stars(r, 170, 600);
+				var cols = ['#3dffb0', '#38c6ff', '#9b6bff', '#3dffb0'];
+				for (var i = 0; i < 4; i++) {
+					var y = 230 + i * 70;
+					s += '<path d="M-100,' + (y + 80) + ' C300,' + (y - 260) + ' 800,' + (y + 220) + ' 1700,' + (y - 120) + '" fill="none" stroke="' + cols[i] + '" stroke-width="' + (80 - i * 10) + '" opacity=".5" filter="url(#bl)"/>';
+				}
+				s += ridge(r, 820, 120, 200, '#d7e8f5', true);
+				s += ridge(r, 900, 100, 160, '#0b1a2b', true);
+				s += pines(r, 960, 150, '#050d17', 28);
+				return wrap(s, lg('sky', [[0, '#02061a'], [1, '#0f3256']]));
+			},
+			/* 6 Neon Grid */
+			function () {
+				var s = '<rect width="' + W + '" height="' + H + '" fill="url(#sky)"/>';
+				s += '<circle cx="800" cy="470" r="250" fill="#ff2e97" opacity=".35" filter="url(#bl)"/><circle cx="800" cy="470" r="230" fill="url(#sun)"/>';
+				for (var i = 0; i < 8; i++) s += '<rect x="560" y="' + (470 + i * 14 + i * i * 2) + '" width="480" height="' + (4 + i * 2.2) + '" fill="#2a0845"/>';
+				s += '<polygon points="0,560 140,430 260,520 380,400 520,560" fill="#1a0033"/><polygon points="1600,560 1460,420 1340,520 1220,410 1080,560" fill="#1a0033"/>';
+				s += '<rect y="560" width="' + W + '" height="440" fill="#12002b"/>';
+				var g = '';
+				for (var x = -2400; x <= 4000; x += 200) g += '<line x1="800" y1="560" x2="' + x + '" y2="1000"/>';
+				for (var k = 1; k <= 12; k++) { var y = 560 + Math.pow(k / 12, 2.2) * 440; g += '<line x1="0" y1="' + y.toFixed(0) + '" x2="' + W + '" y2="' + y.toFixed(0) + '"/>'; }
+				s += '<g stroke="#ff4fd8" stroke-width="2.5" opacity=".9">' + g + '</g>';
+				s += '<rect y="540" width="' + W + '" height="50" fill="#ff4fd8" opacity=".3" filter="url(#bl)"/>';
+				return wrap(s, lg('sky', [[0, '#12002b'], [.6, '#6a0f7a'], [1, '#ff2e97']]) + lg('sun', [[0, '#ffe34d'], [1, '#ff2e97']]));
+			},
+			/* 7 Liquid Waves */
+			function () {
+				var s = '<rect width="' + W + '" height="' + H + '" fill="#0f0c29"/>';
+				var pal = ['#ff6ec4', '#7873f5', '#4adede', '#ffd36e', '#ff7e5f', '#8e2de2', '#00c6ff', '#f953c6', '#43e97b'];
+				for (var i = 0; i < 9; i++) {
+					var y = 140 + i * 95;
+					s += '<path d="M-50,' + y + ' C250,' + (y - 200) + ' 550,' + (y + 220) + ' 850,' + (y - 20) + ' S1400,' + (y - 240) + ' 1650,' + (y + 60) + ' L1650,1050 L-50,1050Z" fill="' + pal[i] + '" opacity=".5"/>';
+				}
+				s += '<rect width="' + W + '" height="' + H + '" fill="url(#vig)"/>';
+				return wrap(s, rg('vig', [[.55, 'rgba(15,12,41,0)'], [1, 'rgba(15,12,41,.75)']]));
+			},
+			/* 8 Low Poly Prism */
+			function () {
+				var r = rng(88), cols = 16, rows = 10, cw = W / cols, ch = H / rows, pts = [], s = '';
+				for (var j = 0; j <= rows; j++) {
+					pts[j] = [];
+					for (var i = 0; i <= cols; i++) {
+						var jx = (i === 0 || i === cols) ? 0 : (r() - .5) * cw * .7;
+						var jy = (j === 0 || j === rows) ? 0 : (r() - .5) * ch * .7;
+						pts[j][i] = [i * cw + jx, j * ch + jy];
+					}
+				}
+				function tri(a, b, c, i, j) {
+					var hue = 200 + (i / cols) * 150, l = 32 + r() * 26 + (1 - j / rows) * 10;
+					return '<polygon points="' + a.map(function (n) { return n.toFixed(0); }).join(',') + ' ' + b.map(function (n) { return n.toFixed(0); }).join(',') + ' ' + c.map(function (n) { return n.toFixed(0); }).join(',') + '" fill="hsl(' + hue.toFixed(0) + ',72%,' + l.toFixed(0) + '%)" stroke="hsl(' + hue.toFixed(0) + ',72%,' + (l + 4).toFixed(0) + '%)" stroke-width="1"/>';
+				}
+				for (var y = 0; y < rows; y++) for (var x = 0; x < cols; x++) {
+					var p1 = pts[y][x], p2 = pts[y][x + 1], p3 = pts[y + 1][x], p4 = pts[y + 1][x + 1];
+					s += tri(p1, p2, p3, x, y) + tri(p2, p4, p3, x + .5, y + .5);
+				}
+				return wrap(s);
+			},
+			/* 9 Ringed Planet */
+			function () {
+				var r = rng(99), s = '<rect width="' + W + '" height="' + H + '" fill="url(#bg)"/>' + stars(r, 200, H);
+				s += '<circle cx="1250" cy="230" r="60" fill="#9fb4d6"/><circle cx="1270" cy="215" r="60" fill="#0b1030" opacity=".35"/>';
+				s += '<g transform="rotate(-18 560 620)"><path d="M40,620 A520,110 0 0 1 1080,620" fill="none" stroke="#e6c58e" stroke-width="26" opacity=".75"/>';
+				s += '<path d="M70,620 A490,95 0 0 1 1050,620" fill="none" stroke="#b8946a" stroke-width="10" opacity=".7"/></g>';
+				s += '<clipPath id="pc"><circle cx="560" cy="620" r="330"/></clipPath><circle cx="560" cy="620" r="330" fill="url(#pl)"/>';
+				s += '<g clip-path="url(#pc)">';
+				for (var i = 0; i < 9; i++) s += '<rect x="200" y="' + (330 + i * 70) + '" width="720" height="' + (20 + r() * 30).toFixed(0) + '" fill="' + (i % 2 ? '#c8602f' : '#f3b46b') + '" opacity=".35"/>';
+				s += '<circle cx="680" cy="540" r="360" fill="url(#shade)"/></g>';
+				s += '<g transform="rotate(-18 560 620)"><path d="M40,620 A520,110 0 0 0 1080,620" fill="none" stroke="#e6c58e" stroke-width="26" opacity=".9"/>';
+				s += '<path d="M70,620 A490,95 0 0 0 1050,620" fill="none" stroke="#b8946a" stroke-width="10" opacity=".85"/></g>';
+				return wrap(s, rg('bg', [[0, '#16204f'], [1, '#02030a']]) + rg('pl', [[0, '#ffc98a'], [1, '#d3622c']]) + rg('shade', [[.35, 'rgba(5,6,20,0)'], [1, 'rgba(5,6,20,.85)']]));
+			},
+			/* 10 Circle Bloom */
+			function () {
+				var s = '<rect width="' + W + '" height="' + H + '" fill="url(#bg)"/><g style="mix-blend-mode:screen">';
+				for (var k = 1; k <= 10; k++) {
+					var n = 6 + k * 2, rad = k * 46, cr = 20 + k * 7;
+					for (var i = 0; i < n; i++) {
+						var a = (i / n) * Math.PI * 2 + k * .15, x = 800 + Math.cos(a) * rad, y = 500 + Math.sin(a) * rad;
+						s += '<circle cx="' + x.toFixed(0) + '" cy="' + y.toFixed(0) + '" r="' + cr + '" fill="hsla(' + (k * 34 + i * 4) + ',90%,60%,.08)" stroke="hsla(' + (k * 34 + i * 4) + ',95%,65%,.7)" stroke-width="2.5"/>';
+					}
+				}
+				s += '</g><circle cx="800" cy="500" r="40" fill="#fff" opacity=".9"/><circle cx="800" cy="500" r="110" fill="#ff7ad9" opacity=".35" filter="url(#bl)"/>';
+				return wrap(s, rg('bg', [[0, '#2a0845'], [1, '#07000f']]));
+			},
+			/* 11 Hex Matrix */
+			function () {
+				var r = rng(111), size = 46, hw = size * Math.sqrt(3), s = '<rect width="' + W + '" height="' + H + '" fill="#06131f"/>';
+				for (var row = -1; row < 16; row++) {
+					for (var col = -1; col < 22; col++) {
+						var cx = col * hw + (row % 2 ? hw / 2 : 0), cy = row * size * 1.5, pts = [];
+						for (var k = 0; k < 6; k++) {
+							var a = Math.PI / 180 * (60 * k - 30);
+							pts.push((cx + (size - 3) * Math.cos(a)).toFixed(1) + ',' + (cy + (size - 3) * Math.sin(a)).toFixed(1));
+						}
+						var dist = Math.hypot(cx - 800, cy - 500) / 950, hue = 180 + (1 - dist) * 130, on = r() > (0.35 + dist * .55);
+						s += '<polygon points="' + pts.join(' ') + '" fill="' + (on ? 'hsla(' + hue.toFixed(0) + ',90%,' + (45 + r() * 20).toFixed(0) + '%,' + (0.35 + r() * .55).toFixed(2) + ')' : 'rgba(255,255,255,.03)') + '" stroke="hsla(' + hue.toFixed(0) + ',90%,60%,.35)" stroke-width="1.5"/>';
+					}
+				}
+				s += '<rect width="' + W + '" height="' + H + '" fill="url(#vig)"/>';
+				return wrap(s, rg('vig', [[.5, 'rgba(6,19,31,0)'], [1, 'rgba(6,19,31,.8)']]));
+			}
+		];
+
+		function toUri(svg) { return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg); }
+
+		/* ------------------------------------------------------------
+		   2. Page load animation (same idea as the original template)
+		   ------------------------------------------------------------ */
+		var body = document.body;
+		var thumbs = Array.prototype.slice.call(document.querySelectorAll('#main .thumb'));
+		var items = [];
+
+		thumbs.forEach(function (t, i) {
+			var idx = parseInt(t.getAttribute('data-art'), 10);
+			var src = t.getAttribute('data-src') || toUri(ART[idx]());
+			var title = t.querySelector('h2').textContent;
+			var desc = t.querySelector('p').textContent;
+			t.querySelector('img').src = src;
+			t.querySelector('a.image').href = src;
+			items.push({ src: src, title: title, desc: desc });
+			t.addEventListener('click', function (e) { e.preventDefault(); openBox(i); });
+		});
+
+		function ready() { setTimeout(function () { body.classList.remove('is-preload'); }, 120); }
+		if (document.readyState === 'complete') ready(); else window.addEventListener('load', ready);
+		setTimeout(ready, 1500); // safety net
+
+		/* ------------------------------------------------------------
+		   3. Lightbox (like the poptrox popup in the original)
+		   ------------------------------------------------------------ */
+		var lb = document.createElement('div');
+		lb.className = 'lb';
+		lb.innerHTML = '<div class="lb-loader"></div>' +
+			'<figure class="lb-stage"><img alt="" /><figcaption></figcaption></figure>' +
+			'<button class="lb-prev" aria-label="Previous"></button>' +
+			'<button class="lb-next" aria-label="Next"></button>' +
+			'<button class="lb-close" aria-label="Close"></button>';
+		body.appendChild(lb);
+
+		var stage = lb.querySelector('.lb-stage'), img = stage.querySelector('img'), cap = stage.querySelector('figcaption');
+		var current = 0, token = 0;
+
+		function show(i) {
+			current = (i + items.length) % items.length;
+			var my = ++token, it = items[current];
+			stage.classList.remove('show');
+			lb.classList.add('loading');
+			setTimeout(function () {
+				if (my !== token) return;
+				var pre = new Image();
+				pre.onload = function () {
+					if (my !== token) return;
+					img.src = it.src;
+					img.alt = it.title;
+					cap.innerHTML = '<strong></strong><span></span>';
+					cap.querySelector('strong').textContent = it.title;
+					cap.querySelector('span').textContent = it.desc;
+					lb.classList.remove('loading');
+					stage.classList.add('show');
+				};
+				pre.src = it.src;
+			}, 180);
+		}
+		function openBox(i) {
+			lb.classList.add('on');
+			body.classList.add('lb-open');
+			show(i);
+		}
+		function closeBox() {
+			token++;
+			lb.classList.remove('on', 'loading');
+			stage.classList.remove('show');
+			body.classList.remove('lb-open');
+		}
+		lb.querySelector('.lb-prev').addEventListener('click', function (e) { e.stopPropagation(); show(current - 1); });
+		lb.querySelector('.lb-next').addEventListener('click', function (e) { e.stopPropagation(); show(current + 1); });
+		lb.querySelector('.lb-close').addEventListener('click', function (e) { e.stopPropagation(); closeBox(); });
+		lb.addEventListener('click', function (e) { if (e.target === lb || e.target === stage) closeBox(); });
+
+		var tx = null;
+		lb.addEventListener('touchstart', function (e) { tx = e.touches[0].clientX; }, { passive: true });
+		lb.addEventListener('touchend', function (e) {
+			if (tx === null) return;
+			var dx = e.changedTouches[0].clientX - tx; tx = null;
+			if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
+		}, { passive: true });
+
+		/* ------------------------------------------------------------
+		   4. Footer panel (About / Contact)
+		   ------------------------------------------------------------ */
+		var footer = document.getElementById('footer'), aboutLink = document.getElementById('aboutLink');
+		function togglePanel(force) {
+			var open = typeof force === 'boolean' ? force : !footer.classList.contains('visible');
+			footer.classList.toggle('visible', open);
+		}
+		aboutLink.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); togglePanel(); });
+		document.getElementById('footerClose').addEventListener('click', function (e) { e.stopPropagation(); togglePanel(false); });
+		footer.addEventListener('click', function (e) { e.stopPropagation(); });
+		document.addEventListener('click', function () { togglePanel(false); });
+		document.querySelector('#header h1 a').addEventListener('click', function (e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+		Array.prototype.forEach.call(document.querySelectorAll('ul.icons a'), function (a) {
+			a.addEventListener('click', function (e) { e.preventDefault(); });
+		});
+
+		document.addEventListener('keydown', function (e) {
+			if (lb.classList.contains('on')) {
+				if (e.key === 'Escape') closeBox();
+				else if (e.key === 'ArrowLeft') show(current - 1);
+				else if (e.key === 'ArrowRight') show(current + 1);
+			} else if (e.key === 'Escape') togglePanel(false);
+		});
+
+		/* ------------------------------------------------------------
+		   5. Contact form
+		   ------------------------------------------------------------ */
+		var form = document.getElementById('contactForm'),
+			status = document.getElementById('formStatus'),
+			sendBtn = document.getElementById('sendBtn'),
+			fName = document.getElementById('name'),
+			fEmail = document.getElementById('email'),
+			fMsg = document.getElementById('message');
+
+		function mark(el, ok) { el.parentNode.classList.toggle('invalid', !ok); return ok; }
+		function say(text, ok) {
+			status.textContent = text;
+			status.className = 'form-status show ' + (ok ? 'ok' : 'bad');
+		}
+		[fName, fEmail, fMsg].forEach(function (el) {
+			el.addEventListener('input', function () { el.parentNode.classList.remove('invalid'); });
+		});
+		form.addEventListener('reset', function () {
+			[fName, fEmail, fMsg].forEach(function (el) { el.parentNode.classList.remove('invalid'); });
+			status.className = 'form-status';
+		});
+		form.addEventListener('submit', function (e) {
+			e.preventDefault();
+			var okName = mark(fName, fName.value.trim().length > 1);
+			var okMail = mark(fEmail, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fEmail.value.trim()));
+			var okMsg = mark(fMsg, fMsg.value.trim().length > 4);
+			if (!(okName && okMail && okMsg)) { say('Please fix the highlighted fields and try again.', false); return; }
+
+			var who = fName.value.trim(), endpoint = form.getAttribute('data-endpoint');
+			sendBtn.disabled = true;
+			if (endpoint) {
+				fetch(endpoint, {
+					method: 'POST',
+					headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+					body: JSON.stringify({ name: who, email: fEmail.value.trim(), message: fMsg.value.trim() })
+				}).then(function (res) {
+					if (!res.ok) throw new Error('bad response');
+					say('Thank you, ' + who + '! Your message has been sent.', true);
+					form.reset(); status.className = 'form-status show ok';
+				}).catch(function () {
+					say('Sorry, something went wrong. Please try again later.', false);
+				}).then(function () { sendBtn.disabled = false; });
+			} else {
+				setTimeout(function () {
+					say('Thank you, ' + who + '! Your message has been received.', true);
+					form.reset(); status.className = 'form-status show ok';
+					sendBtn.disabled = false;
+				}, 600);
+			}
+		});
+	})();
+	</script>
+</body>
+</html>
