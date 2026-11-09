@@ -1,1 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AuthNest – Login & Sign Up</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 24px 16px;
+      font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+      background: linear-gradient(135deg, #0a1128 0%, #1b2a5c 100%);
+      color: #1a2033;
+    }
+
+    .back-home {
+      color: #c9d4ff;
+      text-decoration: none;
+      font-size: 14px;
+      align-self: center;
+    }
+    .back-home:hover { text-decoration: underline; }
+
+    .card {
+      width: 100%;
+      max-width: 400px;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 32px 28px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    .brand { font-size: 24px; font-weight: 700; color: #1d4ed8; margin-bottom: 4px; }
+    .subtitle { font-size: 14px; color: #5b6478; margin-bottom: 22px; }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #eef1f8;
+      border-radius: 10px;
+      padding: 4px;
+      margin-bottom: 20px;
+    }
+    .tab {
+      border: none;
+      background: transparent;
+      padding: 10px;
+      border-radius: 8px;
+      font: inherit;
+      font-weight: 600;
+      font-size: 14px;
+      color: #5b6478;
+      cursor: pointer;
+    }
+    .tab.active { background: #fff; color: #1d4ed8; box-shadow: 0 1px 4px rgba(0,0,0,0.12); }
+
+    label { display: block; font-size: 13px; font-weight: 600; margin: 14px 0 6px; }
+    input {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1.5px solid #d5dbea;
+      border-radius: 8px;
+      font: inherit;
+      font-size: 14px;
+    }
+    input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18); }
+
+    .btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font: inherit;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .btn-primary { background: #2563eb; color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .btn-google {
+      margin-top: 0;
+      background: #fff;
+      color: #1a2033;
+      border: 1.5px solid #d5dbea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .btn-google:hover { background: #f6f8fd; }
+    .btn-google svg { width: 18px; height: 18px; }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0 4px;
+      font-size: 13px;
+      color: #8a93a8;
+    }
+    .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: #e0e5f0; }
+
+    .link-btn {
+      background: none;
+      border: none;
+      color: #2563eb;
+      font: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+    .link-btn:hover { text-decoration: underline; }
+
+    .message {
+      margin-top: 16px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      display: none;
+    }
+    .message.error { display: block; background: #fdecec; color: #a12626; }
+    .message.success { display: block; background: #e7f6ec; color: #1d6b3a; }
+
+    .hidden { display: none; }
+
+    .profile { text-align: center; }
+    .avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: #dbe5ff; color: #1d4ed8;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 700;
+      margin: 0 auto 12px;
+      object-fit: cover;
+    }
+    .profile h2 { font-size: 20px; }
+    .profile p { font-size: 14px; color: #5b6478; margin-top: 4px; word-break: break-all; }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .btn, .tab, input { transition: background 0.15s, border-color 0.15s, box-shadow 0.15s; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="back-home" href="index.html">← Back to Home</a>
+
+  <main class="card">
+    <div class="brand">AuthNest</div>
+
+    <!-- LOGIN / SIGN UP VIEW -->
+    <section id="authView">
+      <p class="subtitle" id="subtitle">Log in to your account.</p>
+
+      <div class="tabs" role="tablist">
+        <button class="tab active" id="tabLogin" type="button" role="tab">Log in</button>
+        <button class="tab" id="tabSignup" type="button" role="tab">Sign up</button>
+      </div>
+
+      <button class="btn btn-google" id="googleBtn" type="button">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+        <span id="googleText">Continue with Google</span>
+      </button>
+
+      <div class="divider">or use email</div>
+
+      <form id="authForm" novalidate>
+        <div id="nameWrap" class="hidden">
+          <label for="name">Full name</label>
+          <input id="name" type="text" autocomplete="name" placeholder="Your name" />
+        </div>
+
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" placeholder="At least 6 characters" required />
+
+        <div id="confirmWrap" class="hidden">
+          <label for="confirm">Confirm password</label>
+          <input id="confirm" type="password" autocomplete="new-password" placeholder="Type the password again" />
+        </div>
+
+        <button class="btn btn-primary" id="submitBtn" type="submit">Log in</button>
+      </form>
+
+      <button class="link-btn" id="forgotBtn" type="button">Forgot password?</button>
+    </section>
+
+    <!-- LOGGED IN VIEW -->
+    <section id="profileView" class="profile hidden">
+      <div id="avatarBox" class="avatar">A</div>
+      <h2 id="profileName">Welcome!</h2>
+      <p id="profileEmail"></p>
+      <button class="btn btn-primary" id="logoutBtn" type="button">Log out</button>
+    </section>
+
+    <div class="message" id="message" role="alert"></div>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      signInWithPopup,
+      GoogleAuthProvider,
+      updateProfile,
+      sendPasswordResetEmail,
+      signOut,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    // ---------- Firebase setup ----------
+    const firebaseConfig = {
+      apiKey: "AIzaSyBwCLNYFmMmNE9h5iKlKhONOcEJgGbgD28",
+      authDomain: "authnest-232b2.firebaseapp.com",
+      databaseURL: "https://authnest-232b2-default-rtdb.firebaseio.com",
+      projectId: "authnest-232b2",
+      storageBucket: "authnest-232b2.firebasestorage.app",
+      messagingSenderId: "514898622818",
+      appId: "1:514898622818:web:1f8c7eb2243d05907a143b",
+      measurementId: "G-1T0YCL8694"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const googleProvider = new GoogleAuthProvider();
+
+    // ---------- Page elements ----------
+    const $ = (id) => document.getElementById(id);
+    const authView = $("authView");
+    const profileView = $("profileView");
+    const tabLogin = $("tabLogin");
+    const tabSignup = $("tabSignup");
+    const form = $("authForm");
+    const submitBtn = $("submitBtn");
+    const msg = $("message");
+
+    let mode = "login"; // "login" or "signup"
+
+    // ---------- Helpers ----------
+    function showMessage(text, type) {
+      msg.textContent = text;
+      msg.className = "message " + type;
+    }
+    function clearMessage() {
+      msg.textContent = "";
+      msg.className = "message";
+    }
+
+    function friendlyError(code) {
+      const errors = {
+        "auth/invalid-email": "That email address is not valid.",
+        "auth/missing-password": "Please enter your password.",
+        "auth/weak-password": "Password must be at least 6 characters.",
+        "auth/email-already-in-use": "An account with this email already exists. Try logging in.",
+        "auth/invalid-credential": "Wrong email or password.",
+        "auth/user-not-found": "No account found with this email.",
+        "auth/wrong-password": "Wrong email or password.",
+        "auth/too-many-requests": "Too many attempts. Please wait a bit and try again.",
+        "auth/popup-closed-by-user": "Google sign-in was closed before finishing.",
+        "auth/cancelled-popup-request": "Google sign-in was cancelled.",
+        "auth/popup-blocked": "Your browser blocked the Google popup. Allow popups and try again.",
+        "auth/unauthorized-domain": "This domain is not allowed. Add it in Firebase → Authentication → Settings → Authorized domains.",
+        "auth/operation-not-allowed": "This sign-in method is not turned on in the Firebase console.",
+        "auth/network-request-failed": "Network error. Check your internet connection."
+      };
+      return errors[code] || "Something went wrong. Please try again.";
+    }
+
+    function setMode(newMode) {
+      mode = newMode;
+      clearMessage();
+      const isSignup = mode === "signup";
+      tabLogin.classList.toggle("active", !isSignup);
+      tabSignup.classList.toggle("active", isSignup);
+      $("nameWrap").classList.toggle("hidden", !isSignup);
+      $("confirmWrap").classList.toggle("hidden", !isSignup);
+      $("forgotBtn").classList.toggle("hidden", isSignup);
+      $("password").autocomplete = isSignup ? "new-password" : "current-password";
+      submitBtn.textContent = isSignup ? "Create account" : "Log in";
+      $("googleText").textContent = isSignup ? "Sign up with Google" : "Continue with Google";
+      $("subtitle").textContent = isSignup ? "Create your account." : "Log in to your account.";
+    }
+
+    function setLoading(isLoading) {
+      submitBtn.disabled = isLoading;
+      $("googleBtn").disabled = isLoading;
+    }
+
+    // ---------- Tabs ----------
+    tabLogin.addEventListener("click", () => setMode("login"));
+    tabSignup.addEventListener("click", () => setMode("signup"));
+
+    // ---------- Email + password ----------
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      clearMessage();
+
+      const email = $("email").value.trim();
+      const password = $("password").value;
+
+      if (!email || !password) {
+        showMessage("Please enter your email and password.", "error");
+        return;
+      }
+
+      setLoading(true);
+      try {
+        if (mode === "signup") {
+          const name = $("name").value.trim();
+          if (password !== $("confirm").value) {
+            showMessage("Passwords do not match.", "error");
+            return;
+          }
+          const result = await createUserWithEmailAndPassword(auth, email, password);
+          if (name) await updateProfile(result.user, { displayName: name });
+          showMessage("Account created. Welcome to AuthNest!", "success");
+        } else {
+          await signInWithEmailAndPassword(auth, email, password);
+        }
+      } catch (err) {
+        showMessage(friendlyError(err.code), "error");
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    // ---------- Google sign-in (works for both login and sign up) ----------
+    $("googleBtn").addEventListener("click", async () => {
+      clearMessage();
+      setLoading(true);
+      try {
+        await signInWithPopup(auth, googleProvider);
+      } catch (err) {
+        showMessage(friendlyError(err.code), "error");
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    // ---------- Forgot password ----------
+    $("forgotBtn").addEventListener("click", async () => {
+      clearMessage();
+      const email = $("email").value.trim();
+      if (!email) {
+        showMessage("Type your email above first, then click Forgot password.", "error");
+        return;
+      }
+      try {
+        await sendPasswordResetEmail(auth, email);
+        showMessage("Reset link sent. Check your inbox (and spam folder).", "success");
+      } catch (err) {
+        showMessage(friendlyError(err.code), "error");
+      }
+    });
+
+    // ---------- Log out ----------
+    $("logoutBtn").addEventListener("click", async () => {
+      await signOut(auth);
+    });
+
+    // ---------- Show the right view when login state changes ----------
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        authView.classList.add("hidden");
+        profileView.classList.remove("hidden");
+
+        const name = user.displayName || "Welcome!";
+        $("profileName").textContent = user.displayName ? "Hi, " + user.displayName : name;
+        $("profileEmail").textContent = user.email || "";
+
+        const box = $("avatarBox");
+        if (user.photoURL) {
+          box.innerHTML = "";
+          const img = document.createElement("img");
+          img.src = user.photoURL;
+          img.alt = "Profile photo";
+          img.referrerPolicy = "no-referrer";
+          img.style.cssText = "width:100%;height:100%;border-radius:50%;object-fit:cover;";
+          box.appendChild(img);
+        } else {
+          box.textContent = (user.displayName || user.email || "A").charAt(0).toUpperCase();
+        }
+      } else {
+        profileView.classList.add("hidden");
+        authView.classList.remove("hidden");
+        form.reset();
+        setMode("login");
+      }
+    });
+  </script>
+</body>
+</html>
