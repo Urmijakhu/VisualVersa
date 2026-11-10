@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Course Enrollment Form</title>
+
+  <!-- ================= CSS ================= -->
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #eef2f7;
+      color: #1f2937;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 30px 16px;
+    }
+
+    .card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 620px;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 { font-size: 26px; margin-bottom: 4px; color: #1e3a8a; }
+    .subtitle { color: #6b7280; margin-bottom: 24px; font-size: 14px; }
+
+    .row { display: flex; gap: 16px; }
+    .field { flex: 1; margin-bottom: 18px; }
+
+    label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: inherit;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .radio-group, .check-group { display: flex; gap: 18px; flex-wrap: wrap; }
+    .radio-group label, .check-group label { font-weight: 400; display: flex; align-items: center; gap: 6px; }
+
+    .error { color: #dc2626; font-size: 12px; margin-top: 4px; min-height: 14px; }
+    .invalid { border-color: #dc2626 !important; }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #2563eb;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover { background: #1d4ed8; }
+
+    .reset-btn { background: #e5e7eb; color: #374151; margin-top: 10px; }
+    .reset-btn:hover { background: #d1d5db; }
+
+    /* Success box */
+    #success {
+      display: none;
+      background: #ecfdf5;
+      border: 1.5px solid #10b981;
+      padding: 18px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    #success h2 { color: #047857; font-size: 18px; margin-bottom: 8px; }
+    #success p { font-size: 14px; margin-bottom: 4px; }
+
+    @media (max-width: 520px) {
+      .row { flex-direction: column; gap: 0; }
+      .card { padding: 22px; }
+    }
+  </style>
+</head>
+
+<!-- ================= HTML ================= -->
+<body>
+  <div class="card">
+    <h1>Course Enrollment Form</h1>
+    <p class="subtitle">Fill in your details to enroll. All fields marked * are required.</p>
+
+    <form id="enrollForm" novalidate>
+
+      <div class="row">
+        <div class="field">
+          <label for="firstName">First Name *</label>
+          <input type="text" id="firstName" placeholder="Rahul">
+          <div class="error" id="firstNameError"></div>
+        </div>
+        <div class="field">
+          <label for="lastName">Last Name *</label>
+          <input type="text" id="lastName" placeholder="Sharma">
+          <div class="error" id="lastNameError"></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email">Email *</label>
+        <input type="email" id="email" placeholder="rahul@example.com">
+        <div class="error" id="emailError"></div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" placeholder="10-digit number" maxlength="10">
+          <div class="error" id="phoneError"></div>
+        </div>
+        <div class="field">
+          <label for="dob">Date of Birth *</label>
+          <input type="date" id="dob">
+          <div class="error" id="dobError"></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Gender *</label>
+        <div class="radio-group">
+          <label><input type="radio" name="gender" value="Male"> Male</label>
+          <label><input type="radio" name="gender" value="Female"> Female</label>
+          <label><input type="radio" name="gender" value="Other"> Other</label>
+        </div>
+        <div class="error" id="genderError"></div>
+      </div>
+
+      <div class="field">
+        <label>Preferred Batch Timing</label>
+        <div class="check-group">
+          <label><input type="checkbox" name="batch" value="Morning"> Morning</label>
+          <label><input type="checkbox" name="batch" value="Afternoon"> Afternoon</label>
+          <label><input type="checkbox" name="batch" value="Evening"> Evening</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="address">Address</label>
+        <textarea id="address" rows="3" placeholder="Your full address"></textarea>
+      </div>
+
+      <div class="field">
+        <label class="check-group" style="font-weight:400;">
+          <input type="checkbox" id="agree"> I agree that the details above are correct *
+        </label>
+        <div class="error" id="agreeError"></div>
+      </div>
+
+      <button type="submit">Enroll Now</button>
+      <button type="button" class="reset-btn" id="resetBtn">Reset Form</button>
+    </form>
+
+    <div id="success"></div>
+  </div>
+
+  <!-- ================= JavaScript ================= -->
+  <script>
+    const form = document.getElementById("enrollForm");
+    const success = document.getElementById("success");
+
+    // Show or clear an error message for a field
+    function setError(id, message) {
+      document.getElementById(id + "Error").textContent = message;
+      const input = document.getElementById(id);
+      if (input) input.classList.toggle("invalid", message !== "");
+    }
+
+    function validate() {
+      let ok = true;
+
+      const firstName = document.getElementById("firstName").value.trim();
+      const lastName  = document.getElementById("lastName").value.trim();
+      const email     = document.getElementById("email").value.trim();
+      const phone     = document.getElementById("phone").value.trim();
+      const dob       = document.getElementById("dob").value;
+      const gender    = document.querySelector('input[name="gender"]:checked');
+      const agree     = document.getElementById("agree").checked;
+
+      // Name checks
+      if (firstName === "") { setError("firstName", "Enter your first name"); ok = false; }
+      else setError("firstName", "");
+
+      if (lastName === "") { setError("lastName", "Enter your last name"); ok = false; }
+      else setError("lastName", "");
+
+      // Email check
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) { setError("email", "Enter a valid email"); ok = false; }
+      else setError("email", "");
+
+      // Phone check (10 digits)
+      if (!/^[0-9]{10}$/.test(phone)) { setError("phone", "Enter a 10-digit phone number"); ok = false; }
+      else setError("phone", "");
+
+      // Date of birth check
+      if (dob === "") { setError("dob", "Select your date of birth"); ok = false; }
+      else if (new Date(dob) > new Date()) { setError("dob", "Date cannot be in the future"); ok = false; }
+      else setError("dob", "");
+
+      // Gender check
+      if (!gender) { document.getElementById("genderError").textContent = "Select your gender"; ok = false; }
+      else document.getElementById("genderError").textContent = "";
+
+      // Agree check
+      if (!agree) { document.getElementById("agreeError").textContent = "Please tick the box to continue"; ok = false; }
+      else document.getElementById("agreeError").textContent = "";
+
+      return ok;
+    }
+
+    // When the form is submitted
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();               // stop page reload
+      if (!validate()) return;          // stop if any error
+
+      const batches = [...document.querySelectorAll('input[name="batch"]:checked')]
+                        .map(b => b.value).join(", ") || "Not selected";
+
+      success.innerHTML = `
+        <h2>Enrollment Successful!</h2>
+        <p><b>Name:</b> ${document.getElementById("firstName").value} ${document.getElementById("lastName").value}</p>
+        <p><b>Email:</b> ${document.getElementById("email").value}</p>
+        <p><b>Phone:</b> ${document.getElementById("phone").value}</p>
+        <p><b>Batch:</b> ${batches}</p>
+      `;
+      success.style.display = "block";
+      success.scrollIntoView({ behavior: "smooth" });
+      form.reset();
+    });
+
+    // Reset button
+    document.getElementById("resetBtn").addEventListener("click", function () {
+      form.reset();
+      success.style.display = "none";
+      document.querySelectorAll(".error").forEach(e => e.textContent = "");
+      document.querySelectorAll(".invalid").forEach(e => e.classList.remove("invalid"));
+    });
+
+    // Allow only digits in phone field
+    document.getElementById("phone").addEventListener("input", function () {
+      this.value = this.value.replace(/[^0-9]/g, "");
+    });
+  </script>
+</body>
+</html>
