@@ -167,20 +167,54 @@ placeholder="Tell us about your creativity..."></textarea>
 </div>
 
 <script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbwVtlYG0IfKSyoihagiwP_I_P2qrtV7MRMK78rzym7-XEE0sxHJOzW3OFTOUpqHORHq/exec";
+
 document.getElementById("enrollmentForm")
-.addEventListener("submit", function(e) {
-  e.preventDefault();
+.addEventListener("submit", async function(e) {
+    e.preventDefault();
 
-  const interests = document.querySelectorAll(
-    'input[name="interests"]:checked'
-  );
+    const form = this;
 
-  if (interests.length === 0) {
-    alert("Please select at least one interest.");
-    return;
-  }
+    const interests = document.querySelectorAll(
+        'input[name="interests"]:checked'
+    );
 
-  alert("Form design is ready! Google Sheets connection is the next step.");
+    if (interests.length === 0) {
+        alert("Please select at least one interest.");
+        return;
+    }
+
+    const formData = new FormData(form);
+
+    const data = {
+        name: formData.get("name") || "",
+        email: formData.get("email") || "",
+        phone: formData.get("phone") || "",
+        role: formData.get("role") || "",
+        interests: Array.from(interests)
+            .map(item => item.value)
+            .join(", "),
+        portfolio: formData.get("portfolio") || "",
+        reason: formData.get("reason") || ""
+    };
+
+    try {
+        await fetch(scriptURL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8"
+            },
+            body: JSON.stringify(data)
+        });
+
+        alert("Form submitted! Please check Google Sheets to confirm your registration.");
+        form.reset();
+
+    } catch (error) {
+        alert("Submission failed. Please try again.");
+        console.error(error);
+    }
 });
 </script>
 
