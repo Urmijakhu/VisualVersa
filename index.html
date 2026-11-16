@@ -284,6 +284,53 @@ footer span {
     color: var(--gold);
 }
 
+
+/* IMAGE PREVIEW */
+
+.image-preview {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
+    text-align: center;
+}
+
+.image-preview img {
+    max-width: 85%;
+    max-height: 70vh;
+    object-fit: contain;
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+}
+
+.image-preview h2 {
+    color: var(--gold);
+    margin-top: 18px;
+}
+
+.image-preview p {
+    color: #ccc;
+    margin-top: 5px;
+}
+
+.close-preview {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+.close-preview:hover {
+    color: var(--gold);
+}
+
 /* ANIMATIONS */
 
 @keyframes fadeUp {
@@ -593,6 +640,20 @@ required></textarea>
 
 </footer>
 
+<!-- IMAGE PREVIEW -->
+
+<div id="imagePreview" class="image-preview">
+
+    <span class="close-preview" onclick="closePreview()">&times;</span>
+
+    <img id="previewImage" src="" alt="Preview">
+
+    <h2 id="previewTitle"></h2>
+
+    <p id="previewDescription"></p>
+
+</div>
+
 <!-- CONTACT FORM NOTICE -->
 
 <script>
@@ -634,6 +695,49 @@ document.getElementById("inquiry-form")
     button.disabled = false;
     button.textContent = "Send Inquiry";
 });
+
+// IMAGE PREVIEW FUNCTIONALITY
+
+const imagePreview = document.getElementById("imagePreview");
+const previewImage = document.getElementById("previewImage");
+const previewTitle = document.getElementById("previewTitle");
+const previewDescription = document.getElementById("previewDescription");
+
+document.querySelectorAll(".gallery-item").forEach((item) => {
+    const image = item.querySelector("img");
+
+    image.style.cursor = "pointer";
+
+    image.addEventListener("click", () => {
+        const title = item.querySelector("h3");
+        const description = item.querySelector("p");
+
+        previewImage.src = image.src;
+        previewImage.alt = image.alt;
+        previewTitle.textContent = title.textContent;
+        previewDescription.textContent = description.textContent;
+
+        imagePreview.style.display = "flex";
+    });
+});
+
+function closePreview() {
+    imagePreview.style.display = "none";
+    previewImage.src = "";
+}
+
+imagePreview.addEventListener("click", (event) => {
+    if (event.target === imagePreview) {
+        closePreview();
+    }
+});
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+        closePreview();
+    }
+});
+
 </script>
 
 </body>
