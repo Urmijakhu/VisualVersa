@@ -8,18 +8,18 @@
 <title>VisualVersa | Photography & Digital Art</title>
 
 <style>
+:root {
+    --gold: #d9ad75;
+    --dark: #111111;
+    --card: #1c1c1c;
+    --muted: #aaaaaa;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
-}
-
-:root {
-    --gold: #d9ad75;
-    --dark: #111;
-    --card: #1b1b1b;
-    --light: #eee;
 }
 
 body {
@@ -75,12 +75,12 @@ header {
 /* HERO */
 
 .hero {
-    min-height: 590px;
+    min-height: 600px;
     display: flex;
     align-items: center;
     padding: 80px 9%;
     background:
-    linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.72)),
+    linear-gradient(rgba(0,0,0,.58), rgba(0,0,0,.75)),
     url("https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1600");
     background-size: cover;
     background-position: center;
@@ -99,20 +99,20 @@ header {
 }
 
 .hero h1 {
-    font-size: clamp(40px, 6vw, 68px);
+    font-size: clamp(40px, 6vw, 70px);
     line-height: 1.15;
     margin-bottom: 22px;
 }
 
 .hero p.description {
     color: #ddd;
-    max-width: 520px;
+    max-width: 530px;
     font-size: 16px;
 }
 
 .btn {
     display: inline-block;
-    margin-top: 28px;
+    margin-top: 27px;
     padding: 13px 29px;
     background: var(--gold);
     color: #111;
@@ -143,7 +143,7 @@ header {
 }
 
 .section-intro {
-    color: #aaa;
+    color: var(--muted);
     margin-bottom: 40px;
 }
 
@@ -161,19 +161,19 @@ header {
     border-radius: 9px;
     overflow: hidden;
     text-align: left;
-    transition: .4s;
     border: 1px solid #292929;
+    transition: .4s;
 }
 
 .gallery-item:hover {
     transform: translateY(-8px);
     border-color: var(--gold);
-    box-shadow: 0 12px 30px rgba(0,0,0,.35);
+    box-shadow: 0 12px 30px rgba(0,0,0,.4);
 }
 
 .gallery-item img {
     width: 100%;
-    height: 260px;
+    height: 250px;
     object-fit: cover;
     display: block;
     transition: .5s;
@@ -190,15 +190,15 @@ header {
 
 .gallery-item p {
     padding: 0 17px 18px;
-    color: #aaa;
+    color: var(--muted);
     font-size: 13px;
 }
 
-/* FEATURE STRIP */
+/* CREATIVE FEATURES */
 
 .feature-strip {
     background: #1b1b1b;
-    padding: 45px 8%;
+    padding: 50px 8%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
@@ -211,7 +211,7 @@ header {
 }
 
 .feature p {
-    color: #aaa;
+    color: var(--muted);
     font-size: 14px;
 }
 
@@ -275,7 +275,7 @@ header {
 footer {
     background: #080808;
     text-align: center;
-    padding: 28px 15px;
+    padding: 30px 15px;
     color: #999;
     font-size: 13px;
 }
@@ -284,7 +284,7 @@ footer span {
     color: var(--gold);
 }
 
-/* ANIMATION */
+/* ANIMATIONS */
 
 @keyframes fadeUp {
     from {
@@ -376,15 +376,20 @@ footer span {
 </nav>
 </header>
 
-<!-- HOME -->
+<!-- HERO SECTION -->
 
 <section id="home" class="hero">
 
 <div class="hero-content">
 
-<p class="tagline">PHOTOGRAPHY • DIGITAL ART • CREATIVITY</p>
+<p class="tagline">
+PHOTOGRAPHY • DIGITAL ART • CREATIVITY
+</p>
 
-<h1>Capture Moments.<br>Create Imagination.</h1>
+<h1>
+Capture Moments.<br>
+Create Imagination.
+</h1>
 
 <p class="description">
 Explore a creative world of photography and digital artwork.
@@ -396,7 +401,7 @@ Discover beautiful visuals, artistic expressions and inspiring moments.
 </div>
 </section>
 
-<!-- PHOTOGRAPHY -->
+<!-- PHOTOGRAPHY GALLERY -->
 
 <section id="photography" class="section">
 
@@ -409,30 +414,45 @@ Discover the beauty of moments through photography.
 <div class="gallery">
 
 <div class="gallery-item">
-<img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=700"
-alt="Mountain landscape">
+<img loading="lazy" src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=700" alt="Mountain landscape">
 <h3>Mountain Escape</h3>
 <p>Nature & Landscapes</p>
 </div>
 
 <div class="gallery-item">
-<img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=700"
-alt="Golden sunrise">
+<img loading="lazy" src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=700" alt="Golden sunrise">
 <h3>Golden Sunrise</h3>
 <p>Light & Moments</p>
 </div>
 
 <div class="gallery-item">
-<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=700"
-alt="Beautiful natural landscape">
+<img loading="lazy" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=700" alt="Beautiful landscape">
 <h3>Nature Stories</h3>
 <p>Beauty of Nature</p>
+</div>
+
+<div class="gallery-item">
+<img loading="lazy" src="https://images.unsplash.com/photo-1500534623283-312aade485b7?w=700" alt="Travel landscape">
+<h3>Wanderlust</h3>
+<p>Travel Photography</p>
+</div>
+
+<div class="gallery-item">
+<img loading="lazy" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=700" alt="Green forest">
+<h3>Forest Dreams</h3>
+<p>Natural Beauty</p>
+</div>
+
+<div class="gallery-item">
+<img loading="lazy" src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=700" alt="Green mountain scenery">
+<h3>Peaceful Views</h3>
+<p>Landscape Photography</p>
 </div>
 
 </div>
 </section>
 
-<!-- DIGITAL ART -->
+<!-- DIGITAL ART GALLERY -->
 
 <section id="digital-art" class="section">
 
@@ -445,24 +465,39 @@ Where imagination becomes visual creativity.
 <div class="gallery">
 
 <div class="gallery-item">
-<img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=700"
-alt="Abstract artwork">
+<img loading="lazy" src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=700" alt="Abstract artwork">
 <h3>Abstract Vision</h3>
 <p>Creative Expression</p>
 </div>
 
 <div class="gallery-item">
-<img src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=700"
-alt="Modern colourful artwork">
+<img loading="lazy" src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=700" alt="Modern artwork">
 <h3>Modern Canvas</h3>
 <p>Art & Imagination</p>
 </div>
 
 <div class="gallery-item">
-<img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=700"
-alt="Colourful abstract digital art">
+<img loading="lazy" src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=700" alt="Colourful abstract artwork">
 <h3>Color Universe</h3>
 <p>Digital Creativity</p>
+</div>
+
+<div class="gallery-item">
+<img loading="lazy" src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=700" alt="Art gallery">
+<h3>Artistic Soul</h3>
+<p>Creative Inspiration</p>
+</div>
+
+<div class="gallery-item">
+<img loading="lazy" src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=700" alt="Artistic painting">
+<h3>Creative Dreams</h3>
+<p>Artistic Imagination</p>
+</div>
+
+<div class="gallery-item">
+<img loading="lazy" src="https://images.unsplash.com/photo-1543857778-c4a1a3e0b2eb?w=700" alt="Colourful creative artwork">
+<h3>Colorful World</h3>
+<p>Visual Expression</p>
 </div>
 
 </div>
@@ -519,17 +554,28 @@ Have a creative idea or project? We'd love to hear from you.
 
 <form id="inquiry-form">
 
-<input type="text" id="name"
-placeholder="Your Name" required>
+<input
+type="text"
+id="name"
+placeholder="Your Name"
+required>
 
-<input type="email" id="email"
-placeholder="Your Email" required>
+<input
+type="email"
+id="email"
+placeholder="Your Email"
+required>
 
-<input type="text" id="subject"
-placeholder="Project Subject" required>
+<input
+type="text"
+id="subject"
+placeholder="Project Subject"
+required>
 
-<textarea id="message"
-placeholder="Tell us about your project" required></textarea>
+<textarea
+id="message"
+placeholder="Tell us about your project"
+required></textarea>
 
 <button type="submit" class="btn">Send Inquiry</button>
 
@@ -540,15 +586,23 @@ placeholder="Tell us about your project" required></textarea>
 <!-- FOOTER -->
 
 <footer>
+
 <p>© 2026 <span>VisualVersa.</span> All Rights Reserved.</p>
+
 <p>Photography | Digital Art | Creativity</p>
+
 </footer>
+
+<!-- CONTACT FORM NOTICE -->
 
 <script>
 document.getElementById("inquiry-form")
 .addEventListener("submit", function(event) {
+
     event.preventDefault();
-    alert("The contact form is not connected yet. Please check back after integration.");
+
+    alert("The contact form is not connected yet. Google Sheets integration will be added separately.");
+
 });
 </script>
 
