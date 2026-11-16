@@ -129,6 +129,7 @@ button:hover {
         <h2 id="formTitle">Login</h2>
 
         <form id="authForm">
+
             <input
                 type="text"
                 id="name"
@@ -153,6 +154,7 @@ button:hover {
             <a class="forgot" id="forgot">Forgot Password?</a>
 
             <button type="submit" id="submitBtn">Login</button>
+
         </form>
 
         <button class="google" id="googleBtn">
@@ -187,12 +189,14 @@ import {
     signInWithEmailAndPassword,
     GoogleAuthProvider,
     signInWithPopup,
+    getAdditionalUserInfo,
     sendPasswordResetEmail,
     onAuthStateChanged,
     updateProfile,
     signOut
 }
 from "https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js";
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyA8AjN2InsgSG9_smQVAwCnqTaiTPyOxpE",
@@ -202,6 +206,7 @@ const firebaseConfig = {
     messagingSenderId: "721396543460",
     appId: "1:721396543460:web:39e033c4ba0b51599aa1f1"
 };
+
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -217,10 +222,14 @@ const nameInput = document.getElementById("name");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 
+
 function showMessage(text, success = false) {
     message.textContent = text;
     message.style.color = success ? "green" : "red";
 }
+
+
+// Switch between Login and Signup
 
 document.getElementById("switchBtn").addEventListener("click", () => {
 
@@ -247,6 +256,9 @@ document.getElementById("switchBtn").addEventListener("click", () => {
     showMessage("");
 });
 
+
+// Email Signup and Login
+
 document.getElementById("authForm").addEventListener("submit", async (e) => {
 
     e.preventDefault();
@@ -261,38 +273,72 @@ document.getElementById("authForm").addEventListener("submit", async (e) => {
             const name = nameInput.value.trim();
 
             const result = await createUserWithEmailAndPassword(
-                auth, email, password
+                auth,
+                email,
+                password
             );
 
             await updateProfile(result.user, {
                 displayName: name
             });
 
-            showMessage("Account created successfully!", true);
+            // New users go to enrollment
+            window.location.replace("enrollment.html");
 
         } else {
 
             await signInWithEmailAndPassword(
-                auth, email, password
+                auth,
+                email,
+                password
             );
 
-            showMessage("Login successful!", true);
+            // Existing users go to homepage
+            window.location.replace("index.html");
+
         }
 
     } catch (error) {
+
         showMessage(error.message);
+
     }
+
 });
+
+
+// Google Signup and Login
 
 document.getElementById("googleBtn").addEventListener("click", async () => {
 
     try {
-        await signInWithPopup(auth, googleProvider);
+
+        const result = await signInWithPopup(auth, googleProvider);
+
+        const additionalInfo = getAdditionalUserInfo(result);
+
+        if (additionalInfo && additionalInfo.isNewUser) {
+
+            // First-time Google users go to enrollment
+            window.location.replace("enrollment.html");
+
+        } else {
+
+            // Existing Google users go to homepage
+            window.location.replace("index.html");
+
+        }
+
     } catch (error) {
+
         showMessage(error.message);
+
     }
 
 });
+
+
+// Forgot Password
 
 document.getElementById("forgot").addEventListener("click", async () => {
 
@@ -304,13 +350,21 @@ document.getElementById("forgot").addEventListener("click", async () => {
     }
 
     try {
+
         await sendPasswordResetEmail(auth, email);
+
         showMessage("Password reset email sent!", true);
+
     } catch (error) {
+
         showMessage(error.message);
+
     }
 
 });
+
+
+// Authentication State
 
 onAuthStateChanged(auth, (user) => {
 
@@ -334,12 +388,21 @@ onAuthStateChanged(auth, (user) => {
 
 });
 
+
+// Logout
+
 document.getElementById("logoutBtn").addEventListener("click", async () => {
 
     try {
+
         await signOut(auth);
+
+        window.location.replace("auth.html");
+
     } catch (error) {
+
         alert(error.message);
+
     }
 
 });
