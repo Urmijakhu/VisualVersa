@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VisualVersa | Login</title>
 
-<style>
 * {
     box-sizing: border-box;
     margin: 0;
@@ -18,38 +11,57 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #17152e, #483b76);
+    background: #111111;
+    color: white;
     padding: 20px;
 }
 
 .container {
-    background: white;
+    background: #1b1b1b;
     width: 100%;
     max-width: 420px;
     padding: 35px;
-    border-radius: 16px;
-    box-shadow: 0 10px 35px #0005;
+    border-radius: 8px;
+    border: 1px solid #333;
+    box-shadow: 0 10px 35px #0008;
 }
 
 h1 {
     text-align: center;
-    color: #51418b;
+    color: #d9ad75;
     margin-bottom: 8px;
+}
+
+h2 {
+    color: white;
+    margin: 20px 0;
+    text-align: center;
 }
 
 .subtitle {
     text-align: center;
-    color: #777;
+    color: #bbbbbb;
     margin-bottom: 25px;
 }
 
 input {
     width: 100%;
-    padding: 13px;
+    padding: 14px;
     margin: 9px 0;
-    border: 1px solid #ccc;
-    border-radius: 7px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background: #222222;
+    color: white;
     font-size: 15px;
+}
+
+input::placeholder {
+    color: #aaaaaa;
+}
+
+input:focus {
+    outline: none;
+    border-color: #d9ad75;
 }
 
 button {
@@ -57,36 +69,38 @@ button {
     padding: 13px;
     margin-top: 12px;
     border: none;
-    border-radius: 7px;
-    background: #51418b;
-    color: white;
+    border-radius: 4px;
+    background: #d9ad75;
+    color: #111111;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 button:hover {
-    background: #382c69;
+    background: white;
 }
 
 .google {
-    background: white;
-    color: #333;
-    border: 1px solid #ccc;
+    background: #222222;
+    color: white;
+    border: 1px solid #555;
 }
 
 .google:hover {
-    background: #f2f2f2;
+    background: #333333;
 }
 
 .switch {
     text-align: center;
     margin-top: 18px;
-    color: #555;
+    color: #bbbbbb;
     font-size: 14px;
 }
 
 .switch a, .forgot {
-    color: #51418b;
+    color: #d9ad75;
     cursor: pointer;
     font-weight: bold;
     text-decoration: none;
@@ -113,305 +127,11 @@ button:hover {
 
 #profile p {
     margin: 15px 0;
-    color: #555;
-}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-    <div id="authBox">
-        <h1>VisualVersa</h1>
-        <p class="subtitle">Explore. Create. Inspire.</p>
-
-        <h2 id="formTitle">Login</h2>
-
-        <form id="authForm">
-
-            <input
-                type="text"
-                id="name"
-                placeholder="Full Name"
-                style="display:none"
-            >
-
-            <input
-                type="email"
-                id="email"
-                placeholder="Email Address"
-                required
-            >
-
-            <input
-                type="password"
-                id="password"
-                placeholder="Password"
-                required
-            >
-
-            <a class="forgot" id="forgot">Forgot Password?</a>
-
-            <button type="submit" id="submitBtn">Login</button>
-
-        </form>
-
-        <button class="google" id="googleBtn">
-            Continue with Google
-        </button>
-
-        <p class="switch">
-            <span id="switchText">Don't have an account?</span>
-            <a id="switchBtn">Sign Up</a>
-        </p>
-
-        <p id="message"></p>
-    </div>
-
-    <div id="profile">
-        <h1>Welcome to VisualVersa!</h1>
-        <p id="userName"></p>
-        <p id="userEmail"></p>
-        <button id="logoutBtn">Logout</button>
-    </div>
-
-</div>
-
-<script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
-
-import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    GoogleAuthProvider,
-    signInWithPopup,
-    getAdditionalUserInfo,
-    sendPasswordResetEmail,
-    onAuthStateChanged,
-    updateProfile,
-    signOut
-}
-from "https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js";
-
-
-const firebaseConfig = {
-    apiKey: "AIzaSyA8AjN2InsgSG9_smQVAwCnqTaiTPyOxpE",
-    authDomain: "visualversa-ec2dc.firebaseapp.com",
-    projectId: "visualversa-ec2dc",
-    storageBucket: "visualversa-ec2dc.firebasestorage.app",
-    messagingSenderId: "721396543460",
-    appId: "1:721396543460:web:39e033c4ba0b51599aa1f1"
-};
-
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
-    
-    googleProvider.setCustomParameters({
-    prompt: "select_account"
-});
-
-let isSignup = false;
-
-const authBox = document.getElementById("authBox");
-const profile = document.getElementById("profile");
-const message = document.getElementById("message");
-
-const nameInput = document.getElementById("name");
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
-
-
-function showMessage(text, success = false) {
-    message.textContent = text;
-    message.style.color = success ? "green" : "red";
+    color: #cccccc;
 }
 
-
-// Switch between Login and Signup
-
-document.getElementById("switchBtn").addEventListener("click", () => {
-
-    isSignup = !isSignup;
-
-    document.getElementById("formTitle").textContent =
-        isSignup ? "Create Account" : "Login";
-
-    document.getElementById("submitBtn").textContent =
-        isSignup ? "Sign Up" : "Login";
-
-    nameInput.style.display = isSignup ? "block" : "none";
-    nameInput.required = isSignup;
-
-    document.getElementById("forgot").style.display =
-        isSignup ? "none" : "block";
-
-    document.getElementById("switchText").textContent =
-        isSignup ? "Already have an account?" : "Don't have an account?";
-
-    document.getElementById("switchBtn").textContent =
-        isSignup ? "Login" : "Sign Up";
-
-    showMessage("");
-});
-
-
-// Email Signup and Login
-
-document.getElementById("authForm").addEventListener("submit", async (e) => {
-
-    e.preventDefault();
-
-    const email = emailInput.value.trim();
-    const password = passwordInput.value;
-
-    try {
-
-        if (isSignup) {
-
-            const name = nameInput.value.trim();
-
-            const result = await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-
-            await updateProfile(result.user, {
-                displayName: name
-            });
-
-            // New users go to enrollment
-            window.location.replace("enrollment.html");
-
-        } else {
-
-            await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-
-            // Existing users go to homepage
-            window.location.replace("index.html");
-
-        }
-
-    } catch (error) {
-
-        showMessage(error.message);
-
+@media (max-width: 480px) {
+    .container {
+        padding: 25px 20px;
     }
-
-});
-
-
-// Google Signup and Login
-
-document.getElementById("googleBtn").addEventListener("click", async () => {
-
-    try {
-
-        const result = await signInWithPopup(auth, googleProvider);
-
-        const additionalInfo = getAdditionalUserInfo(result);
-
-        if (additionalInfo && additionalInfo.isNewUser) {
-
-            // First-time Google users go to enrollment
-            window.location.replace("enrollment.html");
-
-        } else {
-
-            // Existing Google users go to homepage
-            window.location.replace("index.html");
-
-        }
-
-    } catch (error) {
-
-        showMessage(error.message);
-
-    }
-
-});
-
-
-// Forgot Password
-
-document.getElementById("forgot").addEventListener("click", async () => {
-
-    const email = emailInput.value.trim();
-
-    if (!email) {
-        showMessage("Please enter your email address first.");
-        return;
-    }
-
-    try {
-
-        await sendPasswordResetEmail(auth, email);
-
-        showMessage("Password reset email sent!", true);
-
-    } catch (error) {
-
-        showMessage(error.message);
-
-    }
-
-});
-
-
-// Authentication State
-
-onAuthStateChanged(auth, (user) => {
-
-    if (user) {
-
-        authBox.style.display = "none";
-        profile.style.display = "block";
-
-        document.getElementById("userName").textContent =
-            "Name: " + (user.displayName || "VisualVersa Member");
-
-        document.getElementById("userEmail").textContent =
-            "Email: " + user.email;
-
-    } else {
-
-        authBox.style.display = "block";
-        profile.style.display = "none";
-
-    }
-
-});
-
-
-// Logout
-
-document.getElementById("logoutBtn").addEventListener("click", async () => {
-
-    try {
-
-        await signOut(auth);
-
-        window.location.replace("auth.html");
-
-    } catch (error) {
-
-        alert(error.message);
-
-    }
-
-});
-
-</script>
-
-</body>
-</html>
+}
