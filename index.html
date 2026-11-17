@@ -31,13 +31,18 @@ body {
 
 /* NAVIGATION */
 
+
+/* PREMIUM NAVIGATION */
+
 header {
-    background: rgba(20,20,20,0.97);
-    padding: 18px 7%;
+    background: rgba(15, 15, 15, 0.88);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 20px 7%;
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid rgba(217, 173, 117, 0.2);
 }
 
 .navbar {
@@ -47,6 +52,33 @@ header {
     flex-wrap: wrap;
     gap: 15px;
 }
+
+.logo {
+    color: var(--gold);
+    font-size: 29px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #eeeeee;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    transition: 0.3s ease;
+}
+
+.navbar a:hover {
+    color: var(--gold);
+}
+
 
 .logo {
     color: var(--gold);
@@ -74,41 +106,68 @@ header {
 
 /* HERO */
 
+
+/* PREMIUM HERO SECTION */
+
 .hero {
-    min-height: 600px;
+    min-height: 650px;
     display: flex;
     align-items: center;
-    padding: 80px 9%;
+    padding: 90px 9%;
+    position: relative;
+    overflow: hidden;
+
     background:
-    linear-gradient(rgba(0,0,0,.58), rgba(0,0,0,.75)),
-    url("https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1600");
+    linear-gradient(
+        90deg,
+        rgba(10,10,10,0.95),
+        rgba(10,10,10,0.65),
+        rgba(10,10,10,0.25)
+    ),
+    url("https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1800");
+
     background-size: cover;
     background-position: center;
 }
 
 .hero-content {
-    max-width: 700px;
+    max-width: 750px;
     animation: fadeUp 1s ease;
 }
 
 .tagline {
     color: var(--gold);
-    letter-spacing: 4px;
+    letter-spacing: 5px;
     font-size: 12px;
-    margin-bottom: 20px;
+    font-weight: bold;
+    margin-bottom: 25px;
 }
 
 .hero h1 {
-    font-size: clamp(40px, 6vw, 70px);
-    line-height: 1.15;
-    margin-bottom: 22px;
+    font-size: clamp(45px, 7vw, 82px);
+    line-height: 1.08;
+    font-weight: 700;
+    letter-spacing: -2px;
+    margin-bottom: 25px;
+}
+
+.hero h1 span {
+    color: var(--gold);
 }
 
 .hero p.description {
-    color: #ddd;
-    max-width: 530px;
+    color: #cccccc;
+    max-width: 520px;
     font-size: 16px;
+    line-height: 1.9;
 }
+
+.hero .btn {
+    padding: 15px 34px;
+    letter-spacing: 1px;
+    border-radius: 2px;
+}
+
 
 .btn {
     display: inline-block;
@@ -149,50 +208,52 @@ header {
 
 /* GALLERY */
 
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-    margin-top: 35px;
-}
+
+/* PREMIUM GALLERY CARDS */
 
 .gallery-item {
-    background: var(--card);
-    border-radius: 9px;
+    background: #191919;
+    border-radius: 5px;
     overflow: hidden;
     text-align: left;
-    border: 1px solid #292929;
-    transition: .4s;
+    border: 1px solid #303030;
+    transition: transform 0.4s ease, border-color 0.4s ease,
+                box-shadow 0.4s ease;
 }
 
 .gallery-item:hover {
-    transform: translateY(-8px);
+    transform: translateY(-7px);
     border-color: var(--gold);
-    box-shadow: 0 12px 30px rgba(0,0,0,.4);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
 }
 
 .gallery-item img {
     width: 100%;
-    height: 250px;
+    height: 280px;
     object-fit: cover;
     display: block;
-    transition: .5s;
+    transition: transform 0.7s ease;
 }
 
 .gallery-item:hover img {
-    transform: scale(1.05);
+    transform: scale(1.06);
 }
 
 .gallery-item h3 {
-    padding: 15px 17px 3px;
-    color: white;
+    padding: 19px 18px 5px;
+    color: #fff;
+    font-size: 19px;
+    letter-spacing: 0.4px;
 }
 
 .gallery-item p {
-    padding: 0 17px 18px;
-    color: var(--muted);
+    padding: 0 18px 20px;
+    color: #aaa;
     font-size: 13px;
+    letter-spacing: 0.5px;
 }
+
+
 
 /* CREATIVE FEATURES */
 
@@ -215,6 +276,40 @@ header {
     font-size: 14px;
 }
 
+
+/* GALLERY FILTERS */
+
+.gallery-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 30px 0;
+}
+
+.filter-btn {
+    padding: 10px 23px;
+    background: transparent;
+    color: #ddd;
+    border: 1px solid #555;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 13px;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--gold);
+    color: #111;
+    border-color: var(--gold);
+}
+
+.gallery-item.hidden {
+    display: none;
+}
+
+
 /* ABOUT */
 
 .about {
@@ -226,10 +321,23 @@ header {
     margin: auto;
 }
 
-.about-content p {
-    color: #ccc;
-    line-height: 1.9;
-    font-size: 16px;
+
+.about-content .tagline {
+    margin-bottom: 15px;
+    font-size: 11px;
+    letter-spacing: 4px;
+}
+
+.about-content h2 {
+    font-size: clamp(32px, 5vw, 48px);
+    margin-bottom: 25px;
+}
+
+.about-content p:not(.tagline) {
+    margin-bottom: 18px;
+}
+
+
 }
 
 /* CONTACT */
@@ -285,51 +393,140 @@ footer span {
 }
 
 
+/* PREMIUM FOOTER */
+
+.premium-footer {
+    background: #080808;
+    text-align: center;
+    padding: 65px 20px 30px;
+}
+
+.premium-footer h2 {
+    color: var(--gold);
+    font-size: 30px;
+    letter-spacing: 2px;
+}
+
+.premium-footer h2 span {
+    color: white;
+}
+
+.footer-tagline {
+    color: #999;
+    margin: 10px 0 25px;
+    font-size: 14px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 13px;
+    transition: .3s;
+}
+
+.footer-links a:hover {
+    color: var(--gold);
+}
+
+.footer-line {
+    width: 80%;
+    max-width: 700px;
+    height: 1px;
+    background: #333;
+    margin: 25px auto;
+}
+
+.copyright,
+.footer-credit {
+    color: #888;
+    font-size: 12px;
+    margin: 7px;
+}
+
+
 /* IMAGE PREVIEW */
+
+
+/* PREMIUM IMAGE PREVIEW */
 
 .image-preview {
     display: none;
     position: fixed;
     z-index: 1000;
     inset: 0;
-    background: rgba(0, 0, 0, 0.95);
+    background: rgba(5, 5, 5, 0.96);
+    backdrop-filter: blur(12px);
     justify-content: center;
     align-items: center;
     flex-direction: column;
     padding: 30px;
     text-align: center;
+    animation: previewFade 0.3s ease;
 }
 
 .image-preview img {
-    max-width: 85%;
-    max-height: 70vh;
+    max-width: 90%;
+    max-height: 72vh;
     object-fit: contain;
-    border: 2px solid var(--gold);
-    border-radius: 8px;
+    border: 1px solid rgba(217, 173, 117, 0.7);
+    border-radius: 5px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+    animation: imageZoom 0.4s ease;
 }
 
 .image-preview h2 {
     color: var(--gold);
-    margin-top: 18px;
+    margin-top: 20px;
+    font-size: 25px;
+    letter-spacing: 1px;
 }
 
 .image-preview p {
-    color: #ccc;
-    margin-top: 5px;
+    color: #bbb;
+    margin-top: 7px;
+    font-size: 14px;
 }
 
 .close-preview {
     position: absolute;
-    top: 20px;
+    top: 22px;
     right: 35px;
-    font-size: 40px;
+    font-size: 42px;
     color: white;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 .close-preview:hover {
     color: var(--gold);
+    transform: rotate(90deg);
 }
+
+@keyframes previewFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes imageZoom {
+    from {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
 
 /* ANIMATIONS */
 
@@ -399,6 +596,74 @@ footer span {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* MOBILE EXPERIENCE UPGRADE */
+
+@media (max-width: 600px) {
+
+    header {
+        padding: 15px 5%;
+    }
+
+    .navbar {
+        gap: 12px;
+    }
+
+    .navbar ul {
+        width: 100%;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        gap: 20px;
+        padding: 8px 0;
+        scrollbar-width: none;
+    }
+
+    .navbar ul::-webkit-scrollbar {
+        display: none;
+    }
+
+    .navbar a {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .hero {
+        min-height: 520px;
+        padding: 65px 7%;
+        background-position: center;
+    }
+
+    .hero h1 {
+        font-size: 43px;
+        letter-spacing: -1px;
+    }
+
+    .hero p.description {
+        font-size: 14px;
+    }
+
+    .section {
+        padding: 55px 6%;
+    }
+
+    .gallery-item img {
+        height: 260px;
+    }
+
+    .image-preview img {
+        max-width: 100%;
+        max-height: 60vh;
+    }
+
+    .close-preview {
+        top: 12px;
+        right: 20px;
+    }
+}
+
+
 </style>
 </head>
 
@@ -435,7 +700,7 @@ PHOTOGRAPHY • DIGITAL ART • CREATIVITY
 
 <h1>
 Capture Moments.<br>
-Create Imagination.
+<span>Define Creativity.</span>
 </h1>
 
 <p class="description">
@@ -454,11 +719,17 @@ Discover beautiful visuals, artistic expressions and inspiring moments.
 
 <h2>Photography</h2>
 
+<div class="gallery-filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="photography">Photography</button>
+    <button class="filter-btn" data-filter="digital-art">Digital Art</button>
+</div>
+
 <p class="section-intro">
 Discover the beauty of moments through photography.
 </p>
 
-<div class="gallery">
+<div class="gallery" data-category="photography">
 
 <div class="gallery-item">
 <img loading="lazy" src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=700" alt="Mountain landscape">
@@ -509,13 +780,7 @@ Discover the beauty of moments through photography.
 Where imagination becomes visual creativity.
 </p>
 
-<div class="gallery">
-
-<div class="gallery-item">
-<img loading="lazy" src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=700" alt="Abstract artwork">
-<h3>Abstract Vision</h3>
-<p>Creative Expression</p>
-</div>
+<div class="gallery" data-category="digital-art">
 
 <div class="gallery-item">
 <img loading="lazy" src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=700" alt="Modern artwork">
@@ -575,7 +840,28 @@ Where imagination becomes visual creativity.
 
 <section id="about" class="section about">
 
+
 <div class="about-content">
+
+    <p class="tagline">THE STORY BEHIND VISUALVERSA</p>
+
+    <h2>More Than Just Visuals.</h2>
+
+    <p>
+        VisualVersa is a creative space where photography
+        meets digital imagination. Every image tells a story,
+        every artwork expresses an idea, and every detail
+        reflects a different perspective.
+    </p>
+
+    <p>
+        Our vision is to bring visual creativity together
+        through inspiring collections, artistic exploration
+        and meaningful digital experiences.
+    </p>
+
+</div>
+
 
 <h2>About VisualVersa</h2>
 
@@ -632,13 +918,35 @@ required></textarea>
 
 <!-- FOOTER -->
 
-<footer>
 
-<p>© 2026 <span>VisualVersa.</span> All Rights Reserved.</p>
+<footer class="premium-footer">
 
-<p>Photography | Digital Art | Creativity</p>
+    <h2>VisualVersa<span>.</span></h2>
+
+    <p class="footer-tagline">
+        Where creativity meets visual storytelling.
+    </p>
+
+    <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#photography">Photography</a>
+        <a href="#digital-art">Digital Art</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <div class="footer-line"></div>
+
+    <p class="copyright">
+        © 2026 VisualVersa. All Rights Reserved.
+    </p>
+
+    <p class="footer-credit">
+        Designed with creativity and passion.
+    </p>
 
 </footer>
+
 
 <!-- IMAGE PREVIEW -->
 
@@ -737,6 +1045,35 @@ document.addEventListener("keydown", (event) => {
         closePreview();
     }
 });
+
+
+
+const filterButtons = document.querySelectorAll(".filter-btn");
+const galleries = document.querySelectorAll(".gallery");
+
+filterButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+
+        filterButtons.forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        galleries.forEach(gallery => {
+            const category = gallery.dataset.category;
+
+            gallery.querySelectorAll(".gallery-item").forEach(item => {
+                item.classList.toggle(
+                    "hidden",
+                    filter !== "all" && category !== filter
+                );
+            });
+        });
+    });
+});
+
 
 </script>
 
