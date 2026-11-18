@@ -6,85 +6,107 @@
 <title>Join VisualVersa</title>
 
 <style>
+* 
+:root {
+    --gold: #d9ad75;
+    --dark: #111111;
+    --card: #1c1c1c;
+    --muted: #aaaaaa;
+}
+
 * {
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
 body {
-  margin: 0;
-  padding: 30px 15px;
-  background: #f2f0f8;
+    margin: 0;
+    padding: 30px 15px;
+    background: var(--dark);
+    color: white;
 }
 
 .container {
-  max-width: 650px;
-  margin: auto;
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px #0001;
+    max-width: 650px;
+    margin: auto;
+    background: var(--card);
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(217,173,117,0.25);
+    box-shadow: 0 10px 35px #0008;
 }
 
 h1 {
-  color: #51418b;
-  text-align: center;
+    color: var(--gold);
+    text-align: center;
 }
 
 .subtitle {
-  text-align: center;
-  color: #666;
-  margin-bottom: 25px;
+    text-align: center;
+    color: var(--muted);
+    margin-bottom: 25px;
 }
 
 label {
-  display: block;
-  margin-top: 17px;
-  font-weight: bold;
+    display: block;
+    margin-top: 17px;
+    font-weight: bold;
+    color: #eeeeee;
 }
 
 input, select, textarea {
-  width: 100%;
-  padding: 12px;
-  margin-top: 7px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+    width: 100%;
+    padding: 12px;
+    margin-top: 7px;
+    background: #222222;
+    color: white;
+    border: 1px solid #444444;
+    border-radius: 5px;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--gold);
 }
 
 .option {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 10px;
+    color: #dddddd;
 }
 
 .option input {
-  width: auto;
-  margin: 0;
+    width: auto;
+    margin: 0;
+    accent-color: var(--gold);
 }
 
 button {
-  width: 100%;
-  padding: 14px;
-  margin-top: 25px;
-  background: #51418b;
-  color: white;
-  border: none;
-  border-radius: 7px;
-  font-size: 16px;
-  cursor: pointer;
+    width: 100%;
+    padding: 14px;
+    margin-top: 25px;
+    background: var(--gold);
+    color: #111111;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 button:hover {
-  background: #382c69;
+    background: white;
 }
 
 .note {
-  text-align: center;
-  color: #777;
-  font-size: 13px;
-  margin-top: 15px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 15px;
 }
+
 </style>
 </head>
 
