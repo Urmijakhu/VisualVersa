@@ -6,115 +6,26 @@
 <title>VisualVersa | Login</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+input::placeholder {
+color: #999999 !important;
 }
-
-body {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #17152e, #483b76);
-    padding: 20px;
-}
-
-.container {
-    background: white;
-    width: 100%;
-    max-width: 420px;
-    padding: 35px;
-    border-radius: 16px;
-    box-shadow: 0 10px 35px #0005;
-}
-
-h1 {
-    text-align: center;
-    color: #51418b;
-    margin-bottom: 8px;
-}
-
-.subtitle {
-    text-align: center;
-    color: #777;
-    margin-bottom: 25px;
-}
-
-input {
-    width: 100%;
-    padding: 13px;
-    margin: 9px 0;
-    border: 1px solid #ccc;
-    border-radius: 7px;
-    font-size: 15px;
-}
-
 button {
-    width: 100%;
-    padding: 13px;
-    margin-top: 12px;
-    border: none;
-    border-radius: 7px;
-    background: #51418b;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
+background: var(--gold) !important;
+color: #111111 !important;
+border: 1px solid var(--gold) !important;
+border-radius: 5px;
 }
-
 button:hover {
-    background: #382c69;
+background: transparent !important;
+color: var(--gold) !important;
 }
-
-.google {
-    background: white;
-    color: #333;
-    border: 1px solid #ccc;
+a {
+color: var(--gold) !important;
 }
-
-.google:hover {
-    background: #f2f2f2;
+a:hover {
+color: white !important;
 }
-
-.switch {
-    text-align: center;
-    margin-top: 18px;
-    color: #555;
-    font-size: 14px;
-}
-
-.switch a, .forgot {
-    color: #51418b;
-    cursor: pointer;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.forgot {
-    display: block;
-    text-align: right;
-    margin-top: 8px;
-    font-size: 13px;
-}
-
-#message {
-    text-align: center;
-    margin-top: 15px;
-    font-size: 14px;
-    overflow-wrap: anywhere;
-}
-
-#profile {
-    display: none;
-    text-align: center;
-}
-
-#profile p {
-    margin: 15px 0;
-    color: #555;
-}
+</CodeBlock>
 </style>
 </head>
 
