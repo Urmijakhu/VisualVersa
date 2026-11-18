@@ -7,7 +7,9 @@
 
 <style>
 
-/* VISUALVERSA DARK & GOLD THEME */
+
+
+/* VISUALVERSA - PREMIUM BLACK & GOLD LOGIN */
 
 :root {
     --gold: #d9ad75;
@@ -16,109 +18,229 @@
     --muted: #aaaaaa;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 html, body {
-    background: var(--dark) !important;
-    color: white !important;
+    margin: 0;
     min-height: 100%;
+    background: #111111;
+    color: white;
 }
 
 body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 16px;
     font-family: Arial, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            #292117 0%,
+            #17130f 35%,
+            #111111 75%
+        );
 }
 
-/* Main containers */
-.container,
-.login-container,
-.auth-container,
-.form-container,
-#authBox,
-#profile {
-    background: var(--card) !important;
-    color: white !important;
-    border: 1px solid rgba(217,173,117,0.3);
-    border-radius: 10px;
+/* Main container */
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Headings */
-h1, h2, h3 {
-    color: var(--gold) !important;
+/* Login Card */
+
+#authBox {
+    width: 100%;
+    max-width: 420px;
+    padding: 42px 35px;
+    text-align: center;
+
+    background: linear-gradient(
+        145deg,
+        #24211d,
+        #171717
+    );
+
+    border: 1px solid rgba(217,173,117,0.65);
+    border-radius: 18px;
+
+    box-shadow:
+        0 0 25px rgba(217,173,117,0.12),
+        0 15px 45px rgba(0,0,0,0.5);
 }
 
-/* Text */
-p, label, span {
-    color: #eeeeee;
+/* Brand */
+
+#authBox h1 {
+    color: var(--gold);
+    font-size: 34px;
+    letter-spacing: 2px;
+    margin: 0 0 8px;
 }
 
-/* Input fields */
-input, select, textarea {
-    background: #111111 !important;
-    color: white !important;
-    border: 1px solid #444444 !important;
-    border-radius: 5px;
+.subtitle {
+    color: var(--muted);
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-bottom: 32px;
 }
 
-input::placeholder,
-textarea::placeholder {
-    color: #999999 !important;
+/* Login heading */
+
+#formTitle {
+    color: var(--gold);
+    font-size: 25px;
+    margin-bottom: 25px;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-    border-color: var(--gold) !important;
+/* Form */
+
+#authForm {
+    width: 100%;
+}
+
+#authForm input {
+    display: block;
+    width: 100%;
+    height: 48px;
+    margin-bottom: 17px;
+    padding: 0 15px;
+
+    background: #111111;
+    color: white;
+    border: 1px solid #514638;
+    border-radius: 8px;
+
+    font-size: 14px;
     outline: none;
 }
 
-/* Buttons */
-button {
-    background: var(--gold) !important;
-    color: #111111 !important;
-    border: 1px solid var(--gold) !important;
-    border-radius: 5px;
+#authForm input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 8px rgba(217,173,117,0.2);
+}
+
+#authForm input::placeholder {
+    color: #999999;
+}
+
+/* Forgot Password */
+
+.forgot {
+    display: block;
+    text-align: right;
+    margin: 0 0 22px;
+    font-size: 13px;
+    color: var(--gold);
     cursor: pointer;
+    text-decoration: none;
+}
+
+/* Buttons */
+
+button {
+    width: 100%;
+    min-height: 47px;
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    background: var(--gold);
+    color: #111111;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
 }
 
 button:hover {
-    background: transparent !important;
-    color: var(--gold) !important;
+    background: transparent;
+    color: var(--gold);
 }
 
-/* Google button */
+/* Google Button */
+
 .google {
-    background: transparent !important;
-    color: var(--gold) !important;
-    border: 1px solid var(--gold) !important;
+    margin-top: 15px;
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
 }
 
-/* Links */
-a {
-    color: var(--gold) !important;
+.google:hover {
+    background: rgba(217,173,117,0.12);
 }
 
-a:hover {
-    color: white !important;
+/* Sign Up */
+
+.switch {
+    margin-top: 25px;
+    font-size: 14px;
+    color: #cccccc;
 }
 
-/* Logged-in profile */
-#profile {
-    padding: 30px;
-    text-align: center;
+#switchBtn {
+    color: var(--gold);
+    font-weight: bold;
+    margin-left: 5px;
+    cursor: pointer;
+    text-decoration: none;
 }
 
-#profile p {
-    color: #eeeeee !important;
+/* Message */
+
+#message {
+    font-size: 13px;
+    margin-top: 15px;
     overflow-wrap: anywhere;
 }
 
-/* Mobile */
-@media (max-width: 600px) {
-    .container,
-    #authBox,
-    #profile {
-        width: 100%;
-        padding: 25px 20px;
+/* Profile */
+
+#profile {
+    display: none;
+    width: 100%;
+    max-width: 420px;
+    padding: 35px;
+    text-align: center;
+    background: var(--card);
+    border: 1px solid var(--gold);
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(217,173,117,0.12);
+}
+
+#profile h1 {
+    color: var(--gold);
+}
+
+#profile p {
+    color: #eeeeee;
+    overflow-wrap: anywhere;
+}
+
+/* Mobile Responsive */
+
+@media (max-width: 480px) {
+
+    #authBox {
+        padding: 35px 22px;
+    }
+
+    #authBox h1 {
+        font-size: 29px;
+    }
+
+    #formTitle {
+        font-size: 23px;
     }
 }
+
 
 </style>
 </head>
@@ -270,10 +392,7 @@ document.getElementById("switchBtn").addEventListener("click", () => {
 
 document.getElementById("authForm").addEventListener("submit", async (e) => {
 
-    e.preventDefault();
-
-    const email = emailInput.value.trim();
-    const password = passwordInput.value;
+    e.preventDefault();dInput.value;
 
     try {
 
