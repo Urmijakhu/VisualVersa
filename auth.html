@@ -325,6 +325,7 @@ import {
 from "https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js";
 
 
+// Firebase Configuration — tumhari existing settings
 const firebaseConfig = {
     apiKey: "AIzaSyA8AjN2InsgSG9_smQVAwCnqTaiTPyOxpE",
     authDomain: "visualversa-ec2dc.firebaseapp.com",
@@ -334,12 +335,11 @@ const firebaseConfig = {
     appId: "1:721396543460:web:39e033c4ba0b51599aa1f1"
 };
 
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
 const googleProvider = new GoogleAuthProvider();
-    
-    googleProvider.setCustomParameters({
+googleProvider.setCustomParameters({
     prompt: "select_account"
 });
 
@@ -353,35 +353,43 @@ const nameInput = document.getElementById("name");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 
+const submitBtn = document.getElementById("submitBtn");
+const switchBtn = document.getElementById("switchBtn");
+const switchText = document.getElementById("switchText");
+const formTitle = document.getElementById("formTitle");
+const forgotBtn = document.getElementById("forgot");
 
 function showMessage(text, success = false) {
     message.textContent = text;
-    message.style.color = success ? "green" : "red";
+    message.style.color = success ? "#4caf50" : "#ff6b6b";
 }
 
 
 // Switch between Login and Signup
-
-document.getElementById("switchBtn").addEventListener("click", () => {
+switchBtn.addEventListener("click", () => {
 
     isSignup = !isSignup;
 
-    document.getElementById("formTitle").textContent =
+    formTitle.textContent =
         isSignup ? "Create Account" : "Login";
 
-    document.getElementById("submitBtn").textContent =
+    submitBtn.textContent =
         isSignup ? "Sign Up" : "Login";
 
-    nameInput.style.display = isSignup ? "block" : "none";
+    nameInput.style.display =
+        isSignup ? "block" : "none";
+
     nameInput.required = isSignup;
 
-    document.getElementById("forgot").style.display =
+    forgotBtn.style.display =
         isSignup ? "none" : "block";
 
-    document.getElementById("switchText").textContent =
-        isSignup ? "Already have an account?" : "Don't have an account?";
+    switchText.textContent =
+        isSignup
+            ? "Already have an account?"
+            : "Don't have an account?";
 
-    document.getElementById("switchBtn").textContent =
+    switchBtn.textContent =
         isSignup ? "Login" : "Sign Up";
 
     showMessage("");
@@ -389,16 +397,31 @@ document.getElementById("switchBtn").addEventListener("click", () => {
 
 
 // Email Signup and Login
-
 document.getElementById("authForm").addEventListener("submit", async (e) => {
 
-    e.preventDefault();dInput.value;
+    e.preventDefault();
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+
+    if (!email || !password) {
+        showMessage("Please enter your email and password.");
+        return;
+    }
 
     try {
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Please wait...";
 
         if (isSignup) {
 
             const name = nameInput.value.trim();
+
+            if (!name) {
+                showMessage("Please enter your full name.");
+                return;
+            }
 
             const result = await createUserWithEmailAndPassword(
                 auth,
@@ -410,7 +433,6 @@ document.getElementById("authForm").addEventListener("submit", async (e) => {
                 displayName: name
             });
 
-            // New users go to enrollment
             window.location.replace("enrollment.html");
 
         } else {
@@ -421,14 +443,17 @@ document.getElementById("authForm").addEventListener("submit", async (e) => {
                 password
             );
 
-            // Existing users go to homepage
             window.location.replace("index.html");
-
         }
 
     } catch (error) {
 
         showMessage(error.message);
+
+    } finally {
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = isSignup ? "Sign Up" : "Login";
 
     }
 
@@ -436,7 +461,6 @@ document.getElementById("authForm").addEventListener("submit", async (e) => {
 
 
 // Google Signup and Login
-
 document.getElementById("googleBtn").addEventListener("click", async () => {
 
     try {
@@ -446,15 +470,9 @@ document.getElementById("googleBtn").addEventListener("click", async () => {
         const additionalInfo = getAdditionalUserInfo(result);
 
         if (additionalInfo && additionalInfo.isNewUser) {
-
-            // First-time Google users go to enrollment
             window.location.replace("enrollment.html");
-
         } else {
-
-            // Existing Google users go to homepage
             window.location.replace("index.html");
-
         }
 
     } catch (error) {
@@ -467,8 +485,7 @@ document.getElementById("googleBtn").addEventListener("click", async () => {
 
 
 // Forgot Password
-
-document.getElementById("forgot").addEventListener("click", async () => {
+forgotBtn.addEventListener("click", async () => {
 
     const email = emailInput.value.trim();
 
@@ -493,7 +510,6 @@ document.getElementById("forgot").addEventListener("click", async () => {
 
 
 // Authentication State
-
 onAuthStateChanged(auth, (user) => {
 
     if (user) {
@@ -518,7 +534,6 @@ onAuthStateChanged(auth, (user) => {
 
 
 // Logout
-
 document.getElementById("logoutBtn").addEventListener("click", async () => {
 
     try {
@@ -534,6 +549,8 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
     }
 
 });
+
+</script>
 
 </script>
 
