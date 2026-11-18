@@ -6,26 +6,120 @@
 <title>VisualVersa | Login</title>
 
 <style>
-input::placeholder {
-color: #999999 !important;
+
+/* VISUALVERSA DARK & GOLD THEME */
+
+:root {
+    --gold: #d9ad75;
+    --dark: #111111;
+    --card: #1c1c1c;
+    --muted: #aaaaaa;
 }
+
+html, body {
+    background: var(--dark) !important;
+    color: white !important;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Main containers */
+.container,
+.login-container,
+.auth-container,
+.form-container,
+#authBox,
+#profile {
+    background: var(--card) !important;
+    color: white !important;
+    border: 1px solid rgba(217,173,117,0.3);
+    border-radius: 10px;
+}
+
+/* Headings */
+h1, h2, h3 {
+    color: var(--gold) !important;
+}
+
+/* Text */
+p, label, span {
+    color: #eeeeee;
+}
+
+/* Input fields */
+input, select, textarea {
+    background: #111111 !important;
+    color: white !important;
+    border: 1px solid #444444 !important;
+    border-radius: 5px;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #999999 !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--gold) !important;
+    outline: none;
+}
+
+/* Buttons */
 button {
-background: var(--gold) !important;
-color: #111111 !important;
-border: 1px solid var(--gold) !important;
-border-radius: 5px;
+    background: var(--gold) !important;
+    color: #111111 !important;
+    border: 1px solid var(--gold) !important;
+    border-radius: 5px;
+    cursor: pointer;
 }
+
 button:hover {
-background: transparent !important;
-color: var(--gold) !important;
+    background: transparent !important;
+    color: var(--gold) !important;
 }
+
+/* Google button */
+.google {
+    background: transparent !important;
+    color: var(--gold) !important;
+    border: 1px solid var(--gold) !important;
+}
+
+/* Links */
 a {
-color: var(--gold) !important;
+    color: var(--gold) !important;
 }
+
 a:hover {
-color: white !important;
+    color: white !important;
 }
-</CodeBlock>
+
+/* Logged-in profile */
+#profile {
+    padding: 30px;
+    text-align: center;
+}
+
+#profile p {
+    color: #eeeeee !important;
+    overflow-wrap: anywhere;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .container,
+    #authBox,
+    #profile {
+        width: 100%;
+        padding: 25px 20px;
+    }
+}
+
 </style>
 </head>
 
