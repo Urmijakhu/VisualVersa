@@ -1,12 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Join VisualVersa</title>
 
 <style>
-* 
 :root {
     --gold: #d9ad75;
     --dark: #111111;
@@ -15,98 +16,165 @@
 }
 
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
 
 body {
-    margin: 0;
-    padding: 30px 15px;
     background: var(--dark);
     color: white;
+    min-height: 100vh;
+    padding: 50px 18px;
 }
 
 .container {
     max-width: 650px;
+    width: 100%;
     margin: auto;
+    padding: 38px;
     background: var(--card);
-    padding: 30px;
-    border-radius: 8px;
-    border: 1px solid rgba(217,173,117,0.25);
-    box-shadow: 0 10px 35px #0008;
+    border: 1px solid rgba(217,173,117,0.3);
+    border-radius: 10px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
 }
 
 h1 {
     color: var(--gold);
     text-align: center;
+    font-size: 32px;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
 }
 
 .subtitle {
     text-align: center;
     color: var(--muted);
-    margin-bottom: 25px;
+    line-height: 1.6;
+    margin-bottom: 30px;
 }
 
 label {
     display: block;
-    margin-top: 17px;
-    font-weight: bold;
-    color: #eeeeee;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    color: var(--gold);
+    font-size: 15px;
+    font-weight: 600;
 }
 
-input, select, textarea {
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+select,
+textarea {
     width: 100%;
-    padding: 12px;
-    margin-top: 7px;
-    background: #222222;
+    padding: 14px;
+    background: #111111;
     color: white;
     border: 1px solid #444444;
     border-radius: 5px;
+    font-size: 15px;
+    outline: none;
+    transition: border 0.3s;
 }
 
-input:focus, select:focus, textarea:focus {
-    outline: none;
+input:focus,
+select:focus,
+textarea:focus {
     border-color: var(--gold);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #888888;
+}
+
+select {
+    cursor: pointer;
+}
+
+select option {
+    background: #1c1c1c;
+    color: white;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 110px;
 }
 
 .option {
     display: flex;
     align-items: center;
-    gap: 9px;
-    margin-top: 10px;
+    gap: 12px;
+    margin-top: 14px;
     color: #dddddd;
+    font-size: 15px;
 }
 
-.option input {
-    width: auto;
-    margin: 0;
+.option input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
     accent-color: var(--gold);
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
 button {
     width: 100%;
-    padding: 14px;
-    margin-top: 25px;
+    padding: 15px;
+    margin-top: 28px;
     background: var(--gold);
     color: #111111;
-    border: none;
-    border-radius: 4px;
+    border: 1px solid var(--gold);
+    border-radius: 5px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 button:hover {
-    background: white;
+    background: transparent;
+    color: var(--gold);
 }
 
 .note {
     text-align: center;
     color: var(--muted);
     font-size: 13px;
-    margin-top: 15px;
+    margin-top: 18px;
 }
 
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-link:hover {
+    color: white;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 25px 14px;
+    }
+
+    .container {
+        padding: 25px 20px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+}
 </style>
 </head>
 
@@ -115,6 +183,7 @@ button:hover {
 <div class="container">
 
 <h1>Join VisualVersa</h1>
+
 <p class="subtitle">
 A creative community for Photography & Digital Art
 </p>
@@ -122,15 +191,16 @@ A creative community for Photography & Digital Art
 <form id="enrollmentForm">
 
 <label>Full Name *</label>
-<input type="text" name="name" required>
+<input type="text" name="name" placeholder="Enter your full name" required>
 
 <label>Email Address *</label>
-<input type="email" name="email" required>
+<input type="email" name="email" placeholder="Enter your email address" required>
 
 <label>Contact Number</label>
-<input type="tel" name="phone">
+<input type="tel" name="phone" placeholder="Enter your contact number">
 
 <label>What describes you? *</label>
+
 <select name="role" required>
 <option value="">Select your role</option>
 <option>Photographer</option>
@@ -143,58 +213,71 @@ A creative community for Photography & Digital Art
 
 <div class="option">
 <input type="checkbox" name="interests" value="Portrait Photography">
-Portrait Photography
+<span>Portrait Photography</span>
 </div>
 
 <div class="option">
 <input type="checkbox" name="interests" value="Nature & Landscape">
-Nature & Landscape
+<span>Nature & Landscape</span>
 </div>
 
 <div class="option">
 <input type="checkbox" name="interests" value="Photo Editing">
-Photo Editing
+<span>Photo Editing</span>
 </div>
 
 <div class="option">
 <input type="checkbox" name="interests" value="Digital Illustration">
-Digital Illustration
+<span>Digital Illustration</span>
 </div>
 
 <div class="option">
 <input type="checkbox" name="interests" value="Graphic Design">
-Graphic Design
+<span>Graphic Design</span>
 </div>
 
 <div class="option">
 <input type="checkbox" name="interests" value="3D Art">
-3D Art
+<span>3D Art</span>
 </div>
 
 <label>Portfolio / Instagram Link</label>
+
 <input type="url" name="portfolio"
 placeholder="https://example.com">
 
 <label>Why do you want to join VisualVersa? *</label>
-<textarea name="reason" rows="4" required
-placeholder="Tell us about your creativity..."></textarea>
 
-<button type="submit">Submit Registration</button>
+<textarea name="reason" rows="4"
+placeholder="Tell us about your creativity..."
+required></textarea>
+
+<button type="submit" id="submitBtn">
+Submit Registration
+</button>
 
 <p class="note">
 * Required fields
 </p>
 
+<a href="index.html" class="back-link">
+← Back to Home
+</a>
+
 </form>
 </div>
 
 <script>
+
 const scriptURL = "https://script.google.com/macros/s/AKfycbwVtlYG0IfKSyoihagiwP_I_P2qrtV7MRMK78rzym7-XEE0sxHJOzW3OFTOUpqHORHq/exec";
+
 document.getElementById("enrollmentForm")
 .addEventListener("submit", async function(e) {
+
     e.preventDefault();
 
     const form = this;
+    const button = document.getElementById("submitBtn");
 
     const interests = document.querySelectorAll(
         'input[name="interests"]:checked'
@@ -219,7 +302,11 @@ document.getElementById("enrollmentForm")
         reason: formData.get("reason") || ""
     };
 
+    button.disabled = true;
+    button.textContent = "Submitting...";
+
     try {
+
         await fetch(scriptURL, {
             method: "POST",
             mode: "no-cors",
@@ -230,13 +317,23 @@ document.getElementById("enrollmentForm")
         });
 
         alert("Form submitted! Please check Google Sheets to confirm your registration.");
+
         form.reset();
 
     } catch (error) {
+
         alert("Submission failed. Please try again.");
         console.error(error);
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = "Submit Registration";
+
     }
+
 });
+
 </script>
 
 </body>
