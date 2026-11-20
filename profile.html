@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VisualVersa | My Profile</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #080808;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-card {
+    width: 90%;
+    max-width: 420px;
+    padding: 35px;
+    text-align: center;
+    border: 1px solid #c9a45c;
+    border-radius: 12px;
+    background: #111;
+}
+
+h1 {
+    color: #c9a45c;
+    margin-bottom: 25px;
+}
+
+.avatar {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    border: 2px solid #c9a45c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 35px;
+    color: #c9a45c;
+}
+
+p {
+    margin: 15px 0;
+    color: #ddd;
+    overflow-wrap: anywhere;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border: 1px solid #c9a45c;
+    background: transparent;
+    color: #c9a45c;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: #c9a45c;
+    color: #000;
+}
+</style>
+</head>
+
+<body>
+
+<div class="profile-card">
+    <h1>My Profile</h1>
+
+    <div class="avatar">👤</div>
+
+    <p>Account Email</p>
+    <p id="userEmail">Checking account...</p>
+
+    <button onclick="window.location.href='index.html'">
+        Back to Home
+    </button>
+
+    <button id="switchAccount">
+        Switch Account
+    </button>
+
+    <button id="logoutButton">
+        Logout
+    </button>
+</div>
+
+<script type="module">
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
+
+import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyA8AjN2InsgSG9_smQVAwCnqTaiTPyOxpE",
+    authDomain: "visualversa-ec2dc.firebaseapp.com",
+    projectId: "visualversa-ec2dc",
+    storageBucket: "visualversa-ec2dc.firebasestorage.app",
+    messagingSenderId: "721396543460",
+    appId: "1:721396543460:web:39e033c4ba0b51599aa1f1"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        document.getElementById("userEmail").textContent =
+            user.email || "Email unavailable";
+    } else {
+        window.location.replace("auth.html");
+    }
+});
+
+document.getElementById("switchAccount").addEventListener("click", async () => {
+    await signOut(auth);
+    window.location.href = "auth.html";
+});
+
+document.getElementById("logoutButton").addEventListener("click", async () => {
+    await signOut(auth);
+    window.location.href = "index.html";
+});
+</script>
+
+</body>
+</html>
