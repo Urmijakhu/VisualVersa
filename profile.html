@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +20,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
 .profile-card {
@@ -39,22 +39,43 @@ h1 {
 }
 
 .avatar {
-    width: 85px;
-    height: 85px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     border: 2px solid #c9a45c;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 20px;
+    margin: 0 auto 15px;
     font-size: 35px;
     color: #c9a45c;
+    overflow: hidden;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 p {
-    margin: 15px 0;
+    margin: 12px 0;
     color: #ddd;
     overflow-wrap: anywhere;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: #080808;
+    border: 1px solid #c9a45c;
+    color: white;
+    border-radius: 5px;
+}
+
+input[type="file"] {
+    font-size: 12px;
 }
 
 button {
@@ -72,18 +93,36 @@ button:hover {
     background: #c9a45c;
     color: #000;
 }
+
+#status {
+    color: #c9a45c;
+    font-size: 13px;
+}
 </style>
 </head>
 
 <body>
 
 <div class="profile-card">
+
     <h1>My Profile</h1>
 
-    <div class="avatar">👤</div>
+    <div class="avatar" id="avatar">
+        👤
+    </div>
 
     <p>Account Email</p>
     <p id="userEmail">Checking account...</p>
+
+    <p>Full Name</p>
+    <input type="text" id="userName" placeholder="Enter your name">
+
+    <p>Profile Photo</p>
+    <input type="file" id="photoInput" accept="image/*">
+
+    <button id="saveProfile">Save Changes</button>
+
+    <p id="status"></p>
 
     <button onclick="window.location.href='index.html'">
         Back to Home
@@ -96,9 +135,11 @@ button:hover {
     <button id="logoutButton">
         Logout
     </button>
+
 </div>
 
 <script type="module">
+
 import { initializeApp } from
 "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
 
@@ -120,24 +161,151 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+const userEmail = document.getElementById("userEmail");
+const userName = document.getElementById("userName");
+const photoInput = document.getElementById("photoInput");
+const avatar = document.getElementById("avatar");
+const status = document.getElementById("status");
+const saveButton = document.getElementById("saveProfile");
+
+let currentUser = null;
+let selectedPhoto = "";
+
 onAuthStateChanged(auth, (user) => {
+
     if (user) {
-        document.getElementById("userEmail").textContent =
+
+        currentUser = user;
+
+        userEmail.textContent =
             user.email || "Email unavailable";
+
+        const savedProfile = JSON.parse(
+            localStorage.getItem("visualversa_profile_" + user.uid) || "{}"
+        );
+
+        userName.value = savedProfile.name || "";
+
+        selectedPhoto = savedProfile.photo || "";
+
+        if (selectedPhoto) {
+            avatar.innerHTML = `<img src="${selectedPhoto}" alt="Profile Photo">`;
+        }
+
     } else {
+
         window.location.replace("auth.html");
+
     }
+
+});
+
+photoInput.addEventListener("change", () => {
+
+    const file = photoInput.files[0];
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+        status.textContent = "Please select an image.";
+        photoInput.value = "";
+        return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+        status.textContent = "Image must be smaller than 5 MB.";
+        photoInput.value = "";
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+
+        const img = new Image();
+
+        img.onload = () => {
+
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+
+            canvas.width = 300;
+            canvas.height = 300;
+
+            const size = Math.min(img.width, img.height);
+            const x = (img.width - size) / 2;
+            const y = (img.height - size) / 2;
+
+            ctx.drawImage(
+                img,
+                x, y, size, size,
+                0, 0, 300, 300
+            );
+
+            selectedPhoto = canvas.toDataURL("image/jpeg", 0.75);
+
+            avatar.innerHTML =
+                `<img src="${selectedPhoto}" alt="Profile Photo">`;
+
+            status.textContent = "Photo selected. Save your changes.";
+
+        };
+
+        img.src = event.target.result;
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+saveButton.addEventListener("click", () => {
+
+    if (!currentUser) return;
+
+    const name = userName.value.trim();
+
+    if (!name) {
+        status.textContent = "Please enter your name.";
+        return;
+    }
+
+    const profileData = {
+        name: name,
+        photo: selectedPhoto
+    };
+
+    try {
+
+        localStorage.setItem(
+            "visualversa_profile_" + currentUser.uid,
+            JSON.stringify(profileData)
+        );
+
+        status.textContent = "Profile saved successfully!";
+
+    } catch (error) {
+
+        status.textContent = "Unable to save profile.";
+
+    }
+
 });
 
 document.getElementById("switchAccount").addEventListener("click", async () => {
+
     await signOut(auth);
     window.location.href = "auth.html";
+
 });
 
 document.getElementById("logoutButton").addEventListener("click", async () => {
+
     await signOut(auth);
     window.location.href = "index.html";
+
 });
+
 </script>
 
 </body>
