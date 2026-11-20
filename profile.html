@@ -1,3 +1,5 @@
+?variant="standard" id="73182" title="VisualVersa – Updated profile.html"}
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,17 +41,17 @@ h1 {
 }
 
 .avatar {
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
     border: 2px solid #c9a45c;
+    margin: 0 auto 15px;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 15px;
-    font-size: 35px;
+    font-size: 40px;
     color: #c9a45c;
-    overflow: hidden;
 }
 
 .avatar img {
@@ -67,7 +69,7 @@ p {
 input {
     width: 100%;
     padding: 12px;
-    margin-top: 10px;
+    margin-top: 8px;
     background: #080808;
     border: 1px solid #c9a45c;
     color: white;
@@ -107,15 +109,13 @@ button:hover {
 
     <h1>My Profile</h1>
 
-    <div class="avatar" id="avatar">
-        👤
-    </div>
+    <div class="avatar" id="avatar">👤</div>
 
     <p>Account Email</p>
     <p id="userEmail">Checking account...</p>
 
     <p>Full Name</p>
-    <input type="text" id="userName" placeholder="Enter your name">
+    <input type="text" id="userName" placeholder="Enter your full name">
 
     <p>Profile Photo</p>
     <input type="file" id="photoInput" accept="image/*">
@@ -128,13 +128,9 @@ button:hover {
         Back to Home
     </button>
 
-    <button id="switchAccount">
-        Switch Account
-    </button>
+    <button id="switchAccount">Switch Account</button>
 
-    <button id="logoutButton">
-        Logout
-    </button>
+    <button id="logoutButton">Logout</button>
 
 </div>
 
@@ -161,41 +157,34 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-const userEmail = document.getElementById("userEmail");
-const userName = document.getElementById("userName");
-const photoInput = document.getElementById("photoInput");
 const avatar = document.getElementById("avatar");
+const userName = document.getElementById("userName");
+const userEmail = document.getElementById("userEmail");
+const photoInput = document.getElementById("photoInput");
 const status = document.getElementById("status");
-const saveButton = document.getElementById("saveProfile");
 
 let currentUser = null;
 let selectedPhoto = "";
 
 onAuthStateChanged(auth, (user) => {
 
-    if (user) {
-
-        currentUser = user;
-
-        userEmail.textContent =
-            user.email || "Email unavailable";
-
-        const savedProfile = JSON.parse(
-            localStorage.getItem("visualversa_profile_" + user.uid) || "{}"
-        );
-
-        userName.value = savedProfile.name || "";
-
-        selectedPhoto = savedProfile.photo || "";
-
-        if (selectedPhoto) {
-            avatar.innerHTML = `<img src="${selectedPhoto}" alt="Profile Photo">`;
-        }
-
-    } else {
-
+    if (!user) {
         window.location.replace("auth.html");
+        return;
+    }
 
+    currentUser = user;
+    userEmail.textContent = user.email || "Email unavailable";
+
+    const saved = JSON.parse(
+        localStorage.getItem("visualversa_profile_" + user.uid) || "{}"
+    );
+
+    userName.value = saved.name || "";
+    selectedPhoto = saved.photo || "";
+
+    if (selectedPhoto) {
+        avatar.innerHTML = `<img src="${selectedPhoto}" alt="Profile Photo">`;
     }
 
 });
@@ -207,7 +196,7 @@ photoInput.addEventListener("change", () => {
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-        status.textContent = "Please select an image.";
+        status.textContent = "Please select a valid image.";
         photoInput.value = "";
         return;
     }
@@ -222,24 +211,28 @@ photoInput.addEventListener("change", () => {
 
     reader.onload = (event) => {
 
-        const img = new Image();
+        const image = new Image();
 
-        img.onload = () => {
+        image.onload = () => {
 
             const canvas = document.createElement("canvas");
-            const ctx = canvas.getContext("2d");
+            const context = canvas.getContext("2d");
 
             canvas.width = 300;
             canvas.height = 300;
 
-            const size = Math.min(img.width, img.height);
-            const x = (img.width - size) / 2;
-            const y = (img.height - size) / 2;
+            const size = Math.min(image.width, image.height);
 
-            ctx.drawImage(
-                img,
-                x, y, size, size,
-                0, 0, 300, 300
+            context.drawImage(
+                image,
+                (image.width - size) / 2,
+                (image.height - size) / 2,
+                size,
+                size,
+                0,
+                0,
+                300,
+                300
             );
 
             selectedPhoto = canvas.toDataURL("image/jpeg", 0.75);
@@ -247,11 +240,11 @@ photoInput.addEventListener("change", () => {
             avatar.innerHTML =
                 `<img src="${selectedPhoto}" alt="Profile Photo">`;
 
-            status.textContent = "Photo selected. Save your changes.";
+            status.textContent = "Photo selected. Click Save Changes.";
 
         };
 
-        img.src = event.target.result;
+        image.src = event.target.result;
 
     };
 
@@ -259,7 +252,7 @@ photoInput.addEventListener("change", () => {
 
 });
 
-saveButton.addEventListener("click", () => {
+document.getElementById("saveProfile").addEventListener("click", () => {
 
     if (!currentUser) return;
 
@@ -270,43 +263,38 @@ saveButton.addEventListener("click", () => {
         return;
     }
 
-    const profileData = {
-        name: name,
-        photo: selectedPhoto
-    };
-
     try {
 
         localStorage.setItem(
             "visualversa_profile_" + currentUser.uid,
-            JSON.stringify(profileData)
+            JSON.stringify({
+                name: name,
+                photo: selectedPhoto
+            })
         );
 
         status.textContent = "Profile saved successfully!";
 
     } catch (error) {
 
-        status.textContent = "Unable to save profile.";
+        status.textContent = "Could not save profile. Try a smaller photo.";
 
     }
 
 });
 
 document.getElementById("switchAccount").addEventListener("click", async () => {
-
     await signOut(auth);
     window.location.href = "auth.html";
-
 });
 
 document.getElementById("logoutButton").addEventListener("click", async () => {
-
     await signOut(auth);
     window.location.href = "index.html";
-
 });
 
 </script>
 
 </body>
 </html>
+```
