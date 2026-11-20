@@ -682,7 +682,9 @@ footer span {
 <li><a href="#digital-art">Digital Art</a></li>
 <li><a href="#about">About</a></li>
 <li><a href="#contact">Contact</a></li>
-<li><a href="auth.html">Login</a></li>
+<li id="authNav">
+    <a href="auth.html">Login</a>
+</li>
 </ul>
 
 </nav>
@@ -1075,6 +1077,61 @@ filterButtons.forEach(button => {
 });
 
 
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js";
+
+const firebaseConfig = {
+   
+   apiKey: "AIzaSyA8AjN2InsgSG9_smQVAwCnqTaiTPyOxpE",
+    authDomain: "visualversa-ec2dc.firebaseapp.com",
+    projectId: "visualversa-ec2dc",
+    storageBucket: "visualversa-ec2dc.firebasestorage.app",
+    messagingSenderId: "721396543460",
+    appId: "1:721396543460:web:39e033c4ba0b51599aa1f1"
+    
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const authNav = document.getElementById("authNav");
+
+onAuthStateChanged(auth, (user) => {
+
+    if (!authNav) return;
+
+    if (user) {
+        authNav.innerHTML = `
+            <details>
+                <summary>Profile</summary>
+                <div class="profile-menu">
+                    <p id="accountEmail"></p>
+                    <button id="switchAccount">Switch Account</button>
+                    <button id="logoutButton">Logout</button>
+                </div>
+            </details>
+        `;
+
+        document.getElementById("accountEmail").textContent = user.email;
+
+        document.getElementById("switchAccount").onclick = async () => {
+            await signOut(auth);
+            window.location.href = "auth.html";
+        };
+
+        document.getElementById("logoutButton").onclick = async () => {
+            await signOut(auth);
+            window.location.href = "index.html";
+        };
+
+    } else {
+        authNav.innerHTML = '<a href="auth.html">Login</a>';
+    }
+
+});
 </script>
 
 </body>
