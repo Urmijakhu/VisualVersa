@@ -622,6 +622,1497 @@ footer span {
         padding: 25px 18px;
     }
 }
+
+/* PREMIUM VISUALVERSA EFFECTS */
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Navbar hover */
+.navbar a {
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: var(--gold);
+}
+
+/* Premium button effect */
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(217, 173, 117, 0.25);
+}
+
+/* Footer message */
+.footer-message {
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: 1px;
+    opacity: 0.85;
+    margin-top: 20px;
+}
+
+/* Gold scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d9ad75;
+    border-radius: 10px;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VisualVersa | Photography & Digital Art</title>
+
+<style>
+:root {
+    --gold: #d9ad75;
+    --dark: #111111;
+    --card: #1c1c1c;
+    --muted: #aaaaaa;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--dark);
+    color: white;
+    line-height: 1.6;
+}
+
+header {
+    background: rgba(15, 15, 15, 0.88);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 20px 7%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(217, 173, 117, 0.2);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    color: var(--gold);
+    font-size: 28px;
+    letter-spacing: 1px;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    gap: 23px;
+    flex-wrap: wrap;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.navbar a:hover {
+    color: var(--gold);
+}
+
+.hero {
+    min-height: 650px;
+    display: flex;
+    align-items: center;
+    padding: 90px 9%;
+    position: relative;
+    overflow: hidden;
+    background:
+    linear-gradient(
+        90deg,
+        rgba(10,10,10,0.95),
+        rgba(10,10,10,0.65),
+        rgba(10,10,10,0.25)
+    ),
+    url("https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1800");
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-content {
+    max-width: 750px;
+    animation: fadeUp 1s ease;
+}
+
+.tagline {
+    color: var(--gold);
+    letter-spacing: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: clamp(45px, 7vw, 82px);
+    line-height: 1.08;
+    font-weight: 700;
+    letter-spacing: -2px;
+    margin-bottom: 25px;
+}
+
+.hero h1 span {
+    color: var(--gold);
+}
+
+.hero p.description {
+    color: #cccccc;
+    max-width: 520px;
+    font-size: 16px;
+    line-height: 1.9;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 27px;
+    padding: 13px 29px;
+    background: var(--gold);
+    color: #111;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn:hover {
+    background: white;
+    transform: translateY(-3px);
+}
+
+.section {
+    padding: 85px 8%;
+    text-align: center;
+}
+
+.section h2 {
+    font-size: 36px;
+    color: var(--gold);
+    margin-bottom: 12px;
+}
+
+.section-intro {
+    color: var(--muted);
+    margin-bottom: 40px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.gallery-item {
+    background: #191919;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: left;
+    border: 1px solid #303030;
+    transition: 0.4s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-7px);
+    border-color: var(--gold);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.06);
+}
+
+.gallery-item h3 {
+    padding: 19px 18px 5px;
+    color: #fff;
+    font-size: 19px;
+}
+
+.gallery-item p {
+    padding: 0 18px 20px;
+    color: #aaa;
+    font-size: 13px;
+}
+
+.feature-strip {
+    background: #1b1b1b;
+    padding: 50px 8%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    text-align: center;
+}
+
+.feature h3 {
+    color: var(--gold);
+    margin-bottom: 8px;
+}
+
+.feature p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.gallery-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 30px 0;
+}
+
+.filter-btn {
+    padding: 10px 23px;
+    background: transparent;
+    color: #ddd;
+    border: 1px solid #555;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 13px;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--gold);
+    color: #111;
+    border-color: var(--gold);
+}
+
+.gallery-item.hidden {
+    display: none;
+}
+
+.about {
+    background: #191919;
+}
+
+.about-content {
+    max-width: 780px;
+    margin: auto;
+}
+
+.about-content .tagline {
+    margin-bottom: 15px;
+    font-size: 11px;
+    letter-spacing: 4px;
+}
+
+.about-content h2 {
+    font-size: clamp(32px, 5vw, 48px);
+    margin-bottom: 25px;
+}
+
+.about-content p:not(.tagline) {
+    margin-bottom: 18px;
+}
+
+#inquiry-form {
+    max-width: 570px;
+    margin: 35px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#inquiry-form input,
+#inquiry-form textarea {
+    width: 100%;
+    padding: 15px;
+    background: #222;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+}
+
+#inquiry-form input:focus,
+#inquiry-form textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+}
+
+#inquiry-form textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+#inquiry-form button {
+    align-self: center;
+    min-width: 170px;
+}
+
+footer {
+    background: #080808;
+    text-align: center;
+    padding: 30px 15px;
+    color: #999;
+    font-size: 13px;
+}
+
+footer span {
+    color: var(--gold);
+}
+
+.premium-footer {
+    background: #080808;
+    text-align: center;
+    padding: 65px 20px 30px;
+}
+
+.premium-footer h2 {
+    color: var(--gold);
+    font-size: 30px;
+    letter-spacing: 2px;
+}
+
+.premium-footer h2 span {
+    color: white;
+}
+
+.footer-tagline {
+    color: #999;
+    margin: 10px 0 25px;
+    font-size: 14px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 13px;
+}
+
+.footer-links a:hover {
+    color: var(--gold);
+}
+
+.footer-line {
+    width: 80%;
+    max-width: 700px;
+    height: 1px;
+    background: #333;
+    margin: 25px auto;
+}
+
+.copyright,
+.footer-credit {
+    color: #888;
+    font-size: 12px;
+    margin: 7px;
+}
+
+.image-preview {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(5, 5, 5, 0.96);
+    backdrop-filter: blur(12px);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
+    text-align: center;
+}
+
+.image-preview img {
+    max-width: 90%;
+    max-height: 72vh;
+    object-fit: contain;
+    border: 1px solid rgba(217, 173, 117, 0.7);
+    border-radius: 5px;
+}
+
+.image-preview h2 {
+    color: var(--gold);
+    margin-top: 20px;
+    font-size: 25px;
+}
+
+.image-preview p {
+    color: #bbb;
+    margin-top: 7px;
+    font-size: 14px;
+}
+
+.close-preview {
+    position: absolute;
+    top: 22px;
+    right: 35px;
+    font-size: 42px;
+    color: white;
+    cursor: pointer;
+}
+
+.close-preview:hover {
+    color: var(--gold);
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* PROFILE SECTION */
+
+.profile-section {
+    display: none;
+    background: #191919;
+    padding: 70px 20px;
+    text-align: center;
+}
+
+.profile-card {
+    max-width: 480px;
+    margin: auto;
+    padding: 35px;
+    background: #111;
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+}
+
+.profile-card h2 {
+    color: var(--gold);
+    margin-bottom: 25px;
+}
+
+.profile-avatar {
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    margin: 0 auto 20px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 45px;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-card label {
+    display: block;
+    text-align: left;
+    color: var(--gold);
+    margin-top: 18px;
+}
+
+.profile-card input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 7px;
+    background: #080808;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 5px;
+}
+
+.profile-card button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-card button:hover {
+    background: var(--gold);
+    color: #111;
+}
+
+#profileEmail {
+    color: #ccc;
+    overflow-wrap: anywhere;
+}
+
+#profileStatus {
+    color: var(--gold);
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+.profile-menu {
+    position: absolute;
+    background: #191919;
+    border: 1px solid var(--gold);
+    padding: 15px;
+    min-width: 180px;
+    right: 7%;
+    z-index: 200;
+}
+
+.profile-menu a {
+    display: block;
+    padding: 8px;
+}
+
+.profile-menu p {
+    color: #ccc;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+    margin: 8px 0;
+}
+
+.profile-menu button {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    cursor: pointer;
+}
+
+@media(max-width: 850px) {
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 600px) {
+    header {
+        padding: 15px 5%;
+    }
+
+    .navbar {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .navbar ul {
+        width: 100%;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        gap: 20px;
+        padding: 8px 0;
+        scrollbar-width: none;
+    }
+
+    .navbar ul::-webkit-scrollbar {
+        display: none;
+    }
+
+    .navbar a {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .hero {
+        min-height: 520px;
+        padding: 65px 7%;
+    }
+
+    .hero h1 {
+        font-size: 43px;
+        letter-spacing: -1px;
+    }
+
+    .hero p.description {
+        font-size: 14px;
+    }
+
+    .section {
+        padding: 55px 6%;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-item img {
+        height: 260px;
+    }
+
+    .feature-strip {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-card {
+        padding: 25px 18px;
+    }
+}
+
+/* PREMIUM VISUALVERSA EFFECTS */
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Navbar hover */
+.navbar a {
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: var(--gold);
+}
+
+/* Premium button effect */
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(217, 173, 117, 0.25);
+}
+
+/* Footer message */
+.footer-message {
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: 1px;
+    opacity: 0.85;
+    margin-top: 20px;
+}
+
+/* Gold scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d9ad75;
+    border-radius: 10px;
+}
+/* PREMIUM EXPLORE SECTION */
+
+#explore {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(217, 173, 117, 0.09),
+            transparent 65%
+        ),
+        #111;
+}
+
+#explore .section-intro {
+    margin-bottom: 35px;
+}
+
+#explore .btn {
+    min-width: 180px;
+    margin: 10px;
+    padding: 16px 30px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--gold);
+    border: 1px solid rgba(217, 173, 117, 0.5);
+    border-radius: 10px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.35s ease;
+}
+
+#explore .btn:hover {
+    background: var(--gold);
+    color: #111;
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(217, 173, 117, 0.2);
+}
+/* EXPLORE SECTION SPACING */
+
+#explore {
+    padding-top: 65px;
+    padding-bottom: 45px;
+}
+
+#explore .section-intro {
+    margin-bottom: 25px;
+}
+
+#explore .btn {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 12px rgba(217, 173, 117, 0.08);
+}
+
+#explore .btn:hover {
+    box-shadow: 0 0 22px rgba(217, 173, 117, 0.3);
+}
+
+/* PHOTOGRAPHY HEADING ACCENT */
+
+#photography h2::after,
+#digital-art h2::after {
+    content: "";
+    display: block;
+    width: 65px;
+    height: 2px;
+    background: var(--gold);
+    margin: 12px auto 0;
+}
+/* PREMIUM ABOUT SECTION */
+
+.about {
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(217, 173, 117, 0.08),
+            transparent 45%
+        ),
+        #191919;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.about-content {
+    max-width: 800px;
+    padding: 35px 25px;
+    border-left: 2px solid var(--gold);
+    margin: auto;
+}
+
+.about-content h2 {
+    font-size: clamp(34px, 5vw, 52px);
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.about-content p:not(.tagline) {
+    color: #c5c5c5;
+    font-size: 15px;
+    line-height: 2;
+}
+
+.about-content .tagline {
+    color: var(--gold);
+}
+/* PREMIUM CONTACT SECTION */
+
+#contact {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(217, 173, 117, 0.06),
+            transparent 65%
+        ),
+        #111;
+}
+
+#contact h2 {
+    letter-spacing: 1px;
+}
+
+#inquiry-form {
+    padding: 30px;
+    background: #191919;
+    border: 1px solid rgba(217, 173, 117, 0.25);
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+#inquiry-form input,
+#inquiry-form textarea {
+    background: #101010;
+    border: 1px solid #383838;
+    border-radius: 7px;
+    transition: border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+#inquiry-form input:focus,
+#inquiry-form textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 12px rgba(217, 173, 117, 0.12);
+}
+
+#inquiry-form button {
+    min-width: 190px;
+}
+/* PREMIUM FEATURE CARDS */
+
+.feature {
+    padding: 28px 20px;
+    background: #151515;
+    border: 1px solid #303030;
+    border-radius: 10px;
+    transition: all 0.35s ease;
+}
+
+.feature:hover {
+    transform: translateY(-7px);
+    border-color: var(--gold);
+    box-shadow: 0 12px 30px rgba(217, 173, 117, 0.13);
+}
+
+.feature h3 {
+    transition: letter-spacing 0.3s ease;
+}
+
+.feature:hover h3 {
+    letter-spacing: 1px;
+}
+/* BACK TO TOP BUTTON */
+
+#backToTop {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 45px;
+    height: 45px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    background: #191919;
+    color: var(--gold);
+    font-size: 25px;
+    cursor: pointer;
+    z-index: 500;
+    display: none;
+    transition: 0.3s ease;
+}
+
+#backToTop:hover {
+    background: var(--gold);
+    color: #111;
+    transform: translateY(-5px);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<nav class="navbar">
+    <h2 class="logo">VisualVersa.</h2>
+
+    <ul>
+        <li><a href="#home">Home</a></li>
+       
+        <li><a href="#explore">Explore</a></li>
+       
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li id="authNav">
+            <a href="auth.html">Login</a>
+        </li>
+    </ul>
+</nav>
+</header>
+
+<section id="home" class="hero">
+    <div class="hero-content">
+        <p class="tagline">
+            PHOTOGRAPHY • DIGITAL ART • CREATIVITY
+        </p>
+
+        <h1>
+            Capture Moments.<br>
+            <span>Define Creativity.</span>
+        </h1>
+
+        <p class="description">
+            Explore a creative world of photography and digital artwork.
+            Discover beautiful visuals, artistic expressions and inspiring moments.
+        </p>
+
+        <a href="#photography" class="btn">Explore Gallery</a>
+    </div>
+</section>
+
+<section id="explore" class="section">
+    <h2>Explore Our Galleries</h2>
+
+    <p class="section-intro">
+        Discover photography and digital art in one creative space.
+    </p>
+
+    <a href="#photography" class="btn">Photography</a>
+    <a href="#digital-art" class="btn">Digital Art</a>
+</section>
+
+<section id="photography" class="section">
+    <h2>Photography</h2>
+
+    <div class="gallery-filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="photography">Photography</button>
+        <button class="filter-btn" data-filter="digital-art">Digital Art</button>
+    </div>
+
+    <p class="section-intro">
+        Discover the beauty of moments through photography.
+    </p>
+
+    <div class="gallery" data-category="photography">
+        <div class="gallery-item">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=700" alt="Mountain landscape">
+            <h3>Mountain Escape</h3>
+            <p>Nature & Landscapes</p>
+        </div>
+
+        <div class="gallery-item">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=700" alt="Golden sunrise">
+            <h3>Golden Sunrise</h3>
+            <p>Light & Moments</p>
+        </div>
+
+        <div class="gallery-item">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=700" alt="Beautiful landscape">
+            <h3>Nature Stories</h3>
+            <p>Beauty of Nature</p>
+        </div>
+
+        <div class="gallery-item">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1500534623283-312aade485b7?w=700" alt="Travel landscape">
+            <h3>Wanderlust</h3>
+            <p>Travel Photography</p>
+        </div>
+
+        <div class="gallery-item">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=700" alt="Green forest">
+            <h3>Forest Dreams</h3>
+            <p>Natural Beauty</p>
+        </div>
+
+        <div class="gallery-item">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=700" alt="Green mountain scenery">
+            <h3>Peaceful Views</h3>
+            <p>Landscape Photography</p>
+        </div>
+    </div>
+</section>
+
+<section id="digital-art" class="section">
+    <h2>Digital Art</h2>
+
+    <p class="section-intro">
+        Where imagination becomes visual creativity.
+    </p>
+
+    <div class="gallery" data-category="digital-art">
+        <div class="gallery-item">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=700" alt="Modern artwork">
+            <h3>Modern Canvas</h3>
+            <p>Art & Imagination</p>
+        </div>
+
+        <div class="gallery-item">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=700" alt="Colourful abstract artwork">
+            <h3>Color Universe</h3>
+            <p>Digital Creativity</p>
+        </div>
+
+        <div class="gallery-item">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=700" alt="Art gallery">
+            <h3>Artistic Soul</h3>
+            <p>Creative Inspiration</p>
+        </div>
+
+        <div class="gallery-item">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=700" alt="Artistic painting">
+            <h3>Creative Dreams</h3>
+            <p>Artistic Imagination</p>
+        </div>
+
+        <div class="gallery-item">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1543857778-c4a1a3e0b2eb?w=700" alt="Colourful creative artwork">
+            <h3>Colorful World</h3>
+            <p>Visual Expression</p>
+        </div>
+    </div>
+</section>
+
+<section class="feature-strip">
+    <div class="feature">
+        <h3>Photography</h3>
+        <p>Capturing memorable moments and beautiful scenes.</p>
+    </div>
+
+    <div class="feature">
+        <h3>Digital Creativity</h3>
+        <p>Exploring imagination through visual artwork.</p>
+    </div>
+
+    <div class="feature">
+        <h3>Visual Stories</h3>
+        <p>Bringing ideas and creativity together.</p>
+    </div>
+</section>
+
+<section id="about" class="section about">
+    <div class="about-content">
+        <p class="tagline">THE STORY BEHIND VISUALVERSA</p>
+
+        <h2>More Than Just Visuals.</h2>
+
+        <p>
+            VisualVersa is a creative space where photography
+            meets digital imagination. Every image tells a story,
+            every artwork expresses an idea, and every detail
+            reflects a different perspective.
+        </p>
+
+        <p>
+            Our vision is to bring visual creativity together
+            through inspiring collections, artistic exploration
+            and meaningful digital experiences.
+        </p>
+    </div>
+
+   
+</section>
+
+<!-- PROFILE SECTION -->
+
+<section id="profile" class="profile-section">
+    <div class="profile-card">
+        <h2>My Profile</h2>
+
+        <div class="profile-avatar" id="profileAvatar">👤</div>
+
+        <p>Account Email</p>
+        <p id="profileEmail">Checking account...</p>
+
+        <label for="profileName">Full Name</label>
+        <input type="text" id="profileName" placeholder="Enter your full name">
+
+        <label for="profilePhoto">Profile Photo</label>
+        <input type="file" id="profilePhoto" accept="image/*">
+
+        <button type="button" id="saveProfile">Save Changes</button>
+
+        <p id="profileStatus"></p>
+
+        <button type="button" id="backToHome">Back to Home</button>
+    </div>
+</section>
+
+<section id="contact" class="section">
+    <h2>Get In Touch</h2>
+
+    <p class="section-intro">
+        Have a creative idea or project? We'd love to hear from you.
+    </p>
+
+    <form id="inquiry-form">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="email" id="email" placeholder="Your Email" required>
+        <input type="text" id="subject" placeholder="Project Subject" required>
+        <textarea id="message" placeholder="Tell us about your project" required></textarea>
+        <button type="submit" class="btn">Send Inquiry</button>
+    </form>
+</section>
+
+<footer class="premium-footer"
+    <h2>VisualVersa<span>.</span></h2>
+
+    <p class="footer-tagline">
+        Where creativity meets visual storytelling.
+    </p>
+
+  <p class="footer-message">
+    A creative journey, captured one frame at a time.
+</p>
+
+    <div class="footer-line"></div>
+
+    <p class="copyright">
+        © 2026 VisualVersa. All Rights Reserved.
+    </p>
+
+    <p class="footer-credit">
+        Designed with creativity and passion.
+    </p>
+</footer>
+
+<button id="backToTop" aria-label="Back to top">↑</button>
+
+<div id="imagePreview" class="image-preview">
+    <span class="close-preview" onclick="closePreview()">&times;</span>
+    <img id="previewImage" src="" alt="Preview">
+    <h2 id="previewTitle"></h2>
+    <p id="previewDescription"></p>
+</div>
+
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbwVtlYG0IfKSyoihagiwP_I_P2qrtV7MRMK78rzym7-XEE0sxHJOzW3OFTOUpqHORHq/exec";
+
+document.getElementById("inquiry-form")
+.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const button = this.querySelector("button");
+    button.disabled = true;
+    button.textContent = "Sending...";
+
+    const data = {
+        type: "enquiry",
+        name: document.getElementById("name").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        subject: document.getElementById("subject").value.trim(),
+        message: document.getElementById("message").value.trim()
+    };
+
+    try {
+        await fetch(scriptURL, {
+            method: "POST",
+            mode: "no-cors",
+            body: JSON.stringify(data)
+        });
+
+        alert("Your enquiry has been sent. Please check the Enquiries sheet to confirm.");
+        this.reset();
+
+    } catch (error) {
+        alert("Unable to send enquiry. Please try again.");
+        console.error(error);
+    }
+
+    button.disabled = false;
+    button.textContent = "Send Inquiry";
+});
+
+// IMAGE PREVIEW
+
+const imagePreview = document.getElementById("imagePreview");
+const previewImage = document.getElementById("previewImage");
+const previewTitle = document.getElementById("previewTitle");
+const previewDescription = document.getElementById("previewDescription");
+
+document.querySelectorAll(".gallery-item").forEach((item) => {
+    const image = item.querySelector("img");
+    image.style.cursor = "pointer";
+
+    image.addEventListener("click", () => {
+        const title = item.querySelector("h3");
+        const description = item.querySelector("p");
+
+        previewImage.src = image.src;
+        previewImage.alt = image.alt;
+        previewTitle.textContent = title.textContent;
+        previewDescription.textContent = description.textContent;
+
+        imagePreview.style.display = "flex";
+    });
+});
+
+function closePreview() {
+    imagePreview.style.display = "none";
+    previewImage.src = "";
+}
+
+imagePreview.addEventListener("click", (event) => {
+    if (event.target === imagePreview) {
+        closePreview();
+    }
+});
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+        closePreview();
+    }
+});
+
+// GALLERY FILTERS
+
+const filterButtons = document.querySelectorAll(".filter-btn");
+const galleries = document.querySelectorAll(".gallery");
+
+filterButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+
+        filterButtons.forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        galleries.forEach(gallery => {
+            const category = gallery.dataset.category;
+
+            gallery.querySelectorAll(".gallery-item").forEach(item => {
+                item.classList.toggle(
+                    "hidden",
+                    filter !== "all" && category !== filter
+                );
+            });
+        });
+    });
+});
+
+const backToTop = document.getElementById("backToTop");
+
+window.addEventListener("scroll", function() {
+    backToTop.style.display =
+        window.scrollY > 300 ? "block" : "none";
+});
+
+backToTop.addEventListener("click", function() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
+import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyA8AjN2InsgSG9_smQVAwCnqTaiTPyOxpE",
+    authDomain: "visualversa-ec2dc.firebaseapp.com",
+    projectId: "visualversa-ec2dc",
+    storageBucket: "visualversa-ec2dc.firebasestorage.app",
+    messagingSenderId: "721396543460",
+    appId: "1:721396543460:web:39e033c4ba0b51599aa1f1"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const authNav = document.getElementById("authNav");
+
+const profileSection = document.getElementById("profile");
+const profileEmail = document.getElementById("profileEmail");
+const profileName = document.getElementById("profileName");
+const profilePhoto = document.getElementById("profilePhoto");
+const profileAvatar = document.getElementById("profileAvatar");
+const profileStatus = document.getElementById("profileStatus");
+
+let activeProfileUser = null;
+let chosenProfilePhoto = "";
+
+function loadProfile(user) {
+    activeProfileUser = user;
+    profileEmail.textContent = user.email || "Email unavailable";
+
+    const savedProfile = JSON.parse(
+        localStorage.getItem("visualversa_profile_" + user.uid) || "{}"
+    );
+
+    profileName.value = savedProfile.name || "";
+    chosenProfilePhoto = savedProfile.photo || "";
+
+    profileAvatar.innerHTML = chosenProfilePhoto
+        ? `<img src="${chosenProfilePhoto}" alt="Profile photo">`
+        : "👤";
+}
+
+// PHOTO UPLOAD
+
+profilePhoto.addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+        profileStatus.textContent = "Please choose a valid image.";
+        this.value = "";
+        return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+        profileStatus.textContent = "Choose an image smaller than 5 MB.";
+        this.value = "";
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+        const image = new Image();
+
+        image.onload = function () {
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+            const side = Math.min(image.width, image.height);
+
+            canvas.width = 300;
+            canvas.height = 300;
+
+            context.drawImage(
+                image,
+                (image.width - side) / 2,
+                (image.height - side) / 2,
+                side,
+                side,
+                0,
+                0,
+                300,
+                300
+            );
+
+            chosenProfilePhoto = canvas.toDataURL("image/jpeg", 0.75);
+
+            profileAvatar.innerHTML =
+                `<img src="${chosenProfilePhoto}" alt="Profile photo">`;
+
+            profileStatus.textContent = "Photo selected. Click Save Changes.";
+        };
+
+        image.src = event.target.result;
+    };
+
+    reader.readAsDataURL(file);
+});
+
+// SAVE PROFILE
+
+document.getElementById("saveProfile").addEventListener("click", function () {
+    if (!activeProfileUser) {
+        profileStatus.textContent = "Please log in first.";
+        return;
+    }
+
+    const name = profileName.value.trim();
+
+    if (!name) {
+        profileStatus.textContent = "Please enter your full name.";
+        return;
+    }
+
+    try {
+        localStorage.setItem(
+            "visualversa_profile_" + activeProfileUser.uid,
+            JSON.stringify({
+                name: name,
+                photo: chosenProfilePhoto
+            })
+        );
+
+        profileStatus.textContent = "Profile saved successfully!";
+
+    } catch (error) {
+        profileStatus.textContent = "Could not save. Try a smaller photo.";
+    }
+});
+
+// BACK TO HOME
+
+document.getElementById("backToHome").addEventListener("click", function () {
+    profileSection.style.display = "none";
+    document.getElementById("home").scrollIntoView({
+        behavior: "smooth"
+    });
+});
+
+// FIREBASE AUTHENTICATION
+
+onAuthStateChanged(auth, (user) => {
+    if (!authNav) return;
+
+    if (user) {
+        authNav.innerHTML = `
+            <details>
+                <summary>Profile</summary>
+                <div class="profile-menu">
+                    <a href="#profile" id="openProfileLink">My Profile</a>
+                    <p id="accountEmail"></p>
+                    <button id="switchAccount">Switch Account</button>
+                    <button id="logoutButton">Logout</button>
+                </div>
+            </details>
+        `;
+
+        document.getElementById("accountEmail").textContent = user.email;
+
+        loadProfile(user);
+
+        document.getElementById("openProfileLink").addEventListener("click", (event) => {
+            event.preventDefault();
+
+            profileSection.style.display = "block";
+
+            document.querySelector(".profile-menu").parentElement.open = false;
+
+            profileSection.scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+
+        document.getElementById("switchAccount").onclick = async () => {
+            await signOut(auth);
+            window.location.href = "auth.html";
+        };
+
+        document.getElementById("logoutButton").onclick = async () => {
+            await signOut(auth);
+            window.location.href = "index.html";
+        };
+
+    } else {
+        authNav.innerHTML = '<a href="auth.html">Login</a>';
+    }
+});
+</script>
+
+</body>
+</html>
 </style>
 </head>
 
@@ -863,13 +2354,9 @@ footer span {
         Where creativity meets visual storytelling.
     </p>
 
-    <div class="footer-links">
-        <a href="#home">Home</a>
-        <a href="#photography">Photography</a>
-        <a href="#digital-art">Digital Art</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-    </div>
+  <p class="footer-message">
+    A creative journey, captured one frame at a time.
+</p>
 
     <div class="footer-line"></div>
 
